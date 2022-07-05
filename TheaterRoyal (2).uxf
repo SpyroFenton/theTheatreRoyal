@@ -1,0 +1,119 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>1030</x><y>90</y><w>230</w><h>250</h></coordinates><panel_attributes>ShowType (abstract)
+--
+-perfomers: ArrayList
+-showType: Private
+-showName: String
+-duration: String
+-startTime: String
+-language: String
+-showProductionID: Int
+-liveAccompaniment: Boolean
+-description: String
+-priceStall: Double
+-priceCircle: Double
+--
++buildShow() - abstract
+--
++getters()
++setters()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>20</y><w>270</w><h>80</h></coordinates><panel_attributes>Concert(Extends ShowType implements Seat)
+--
+-isLive: Boolean, Final
+--
+&lt;&lt;Constructor&gt;&gt;+Concert (Super) (buildShow)
+--
++buildShow() - abstract
+--
++getters()
++setters()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>370</y><w>270</w><h>100</h></coordinates><panel_attributes>Opera(Extends ShowType implements Seat)
+--
+&lt;&lt;Constructor&gt;&gt;+Opera (Super)(buildShow)
+--
++buildShow() - abstract
+--
++getters()
++setters()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>260</y><w>270</w><h>80</h></coordinates><panel_attributes>Theater(Extends ShowType implements Seat)
+--
+&lt;&lt;Constructor&gt;&gt;+Theater (Super)(buildShow)
+--
++buildShow() - abstract
+--
++getter()
++setters()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>140</y><w>270</w><h>80</h></coordinates><panel_attributes>Musical(Extends ShowType implements Seat)
+--
+&lt;&lt;Constructor&gt;&gt;+Musical (Super)(buildShow)
+--
++buildShow() - abstract
+--
++getters()
++setters()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>50</y><w>270</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>240</y><w>270</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>170</y><w>270</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>280</y><w>270</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;10;10;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>150</y><w>200</w><h>90</h></coordinates><panel_attributes>Seat(Interface)
+--
+-stalls: Int
+-circle: Int
+--
++ getSeatCount() (getter)
++ setSeatCount() (setter)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>170</y><w>300</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;20;280;10</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>230</y><w>300</w><h>190</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;280;170</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>210</y><w>300</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;280;90</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>60</y><w>300</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;110;280;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>40</x><y>580</y><w>210</w><h>250</h></coordinates><panel_attributes>User
+--
+-employee: Boolean
+-firstName: String
+-lastName: String
+-streetName: String
+-city: String
+-postcode: String
+-userReferenceNo: Int
+-email: String
+-phoneNumber: String (optional)
+-ccNumber: String
+-concessionID: String/Boolean
+--
+&lt;&lt;Constructor&gt;&gt;+User()
+--
++getters()
++setters()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>580</y><w>240</w><h>110</h></coordinates><panel_attributes>Performer
+--
+-name: String
+-performerID: Int
+-isMusic: Boolean
+--
++getters()
++setters()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>580</y><w>300</w><h>220</h></coordinates><panel_attributes>Ticket
+--
+-transactionID: Int
+-performanceID: String
+-showName: String
+-location: String
+-price: Double
+-time: String
+-date: String
+-seatType: String
+-concession: String
+--
+&lt;&lt;Constructor&gt;&gt;+Ticket()
+--
+-setters()
+-getters()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>580</y><w>250</w><h>180</h></coordinates><panel_attributes>Checkout
+--
+-ticket: ArrayList&lt;Ticket&gt;
+-basketTotal: Double
+-printConfirmation: String
+--
+&lt;&lt;Constructor&gt;&gt;+Checkout()
+--
++addTicket()
++basketTotal()
++printConfirmation()
++getTicketSize()
++printAllTickets()(TBC)
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>30</x><y>350</y><w>320</w><h>190</h></coordinates><panel_attributes>Note..
+bg=blue
+(super) - indicates that the class extends
+from parent class (ShowType
+
++buildShow() - Method that is passed from
+parent class and can be modelled per sub class
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
