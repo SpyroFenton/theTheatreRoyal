@@ -50,22 +50,6 @@ public class FrontEndController {
 		System.out.println("Welcome");
 	}
 
-	public static void start() {
-		printGreeting();
-		DBConnector db = new DBConnector();
-		InputReader read = new InputReader();
-
-		String choice = null;
-
-		while (choice == null) {
-
-			choice = read.getText("Please choose an option: 1.List shows, 2.Search by name, 3.Search by date");
-			if (choice.equals("1")) {
-				db.listShowProduction();
-			}
-
-		}
-	}
 }
 /*
  * public void start() { private String choice = null;
