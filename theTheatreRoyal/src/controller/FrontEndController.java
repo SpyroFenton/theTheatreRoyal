@@ -3,9 +3,10 @@ package controller;
 import util.InputReader;
 
 public class FrontEndController {
+	private String choice = null;
 	
 	public void start() {
-		private String choice = null;
+		
 		
 		System.out.println("Welcome. Please choose either: Browse, search, date");
 		InputReader read = new InputReader();

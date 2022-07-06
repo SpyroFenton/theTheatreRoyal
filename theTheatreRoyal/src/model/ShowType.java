@@ -14,7 +14,14 @@ public abstract class ShowType {
 	private Double stallPrice;
 	private Double circlePrice;
 	private ArrayList<Performer> performers;
+	private int stallsAvailable;
+	private int circleAvailable;
 
+
+	/**
+	 * buildShow method is passed into all subclasses constructor 
+	 * as this allows code to not have to be repeated in each subclass
+	 */
 	public void buildShow(String showName, String showType, int duration, int startTime, String language,
 			int showProductionID, Boolean liveAccompaniment, String description, Double stallPrice,
 			Double circlePrice) {
@@ -28,8 +35,20 @@ public abstract class ShowType {
 		this.description = description;
 		this.stallPrice = stallPrice;
 		this.circlePrice = circlePrice;
+		performers = new ArrayList<Performer>();
+		/**
+		 * amount of seats available are hardcoded. Unless specification changes 
+		 * this will not change either.
+		 */
+		stallsAvailable = 120; 
+		circleAvailable = 80;
 	}
 
+	/**
+	 * 
+	 * generated getters and setters
+	 */
+	
 	public String getShowName() {
 		return showName;
 	}
@@ -94,6 +113,36 @@ public abstract class ShowType {
 		this.description = description;
 	}
 
+	/**
+	 * 
+	 * methods for the seats for each concert including
+	 * getters for seeing what seats are available, and 
+	 * setters which take an int parameter that represents the amount
+	 * of tickets a customer might purchase.
+	 */
+	
+	
+	public int getTotalSeatsAvailable() {
+		int total = stallsAvailable + circleAvailable;
+		return total;
+	}
+
+	public int getCircleSeatsAvailable() {
+		return circleAvailable;
+	}
+	
+	public int getStallsSeatsAvailable() {
+		return stallsAvailable;
+	}
+	
+	public void setStallsAvailable(int purchase) {
+		stallsAvailable = stallsAvailable - purchase;
+	}
+	
+	public void setCircleAvailable(int purchase) {
+		circleAvailable = circleAvailable - purchase;
+	}
+	
 	public Double getStallPrice() {
 		return stallPrice;
 	}
@@ -110,15 +159,41 @@ public abstract class ShowType {
 		this.circlePrice = circlePrice;
 	}
 
-	public ArrayList<Performer> getPerformers() {
+	/**
+	 * methods for ArrayList performers
+	 * getAllPerformers, addPerformer, getMusicPerformers, getRegularPerformers
+	 * 
+	 */
+	
+	public ArrayList<Performer> getAllPerformers() {
 		return performers;
 	}
-
-	public void setPerformers(ArrayList<Performer> performers) {
-		this.performers = performers;
+	
+	public void addPerformer(Performer performer) {
+		performers.add(performer);
 	}
 	
+	public ArrayList<Performer> getMusicPerformers() {
+		ArrayList<Performer> musicPerformers = new ArrayList<Performer>();
+		for (int i = 0; i < performers.size(); i++) {
+			if (performers.get(i).isMusic()) {
+				musicPerformers.add(performers.get(i));
+			}
+		}
+		
+		return musicPerformers;
+	}
 	
+	public ArrayList<Performer> getRegularPerformers() {
+		ArrayList<Performer> regularPerformers = new ArrayList<Performer>();
+		for (int i = 0; i < performers.size(); i++) {
+			if (performers.get(i).isMusic()) {
+				regularPerformers.add(performers.get(i));
+			}
+		}
+		
+		return regularPerformers;
+	}
 	
 	
 }
