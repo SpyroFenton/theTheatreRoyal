@@ -51,10 +51,6 @@ public class DBConnector {
 		}
 	}
 
-	/**
-	 * select everything from the Person table, convert to a list of Person objects
-	 * and print each Person object.
-	 */
 	public void listShowProduction() {
 
 		try {
