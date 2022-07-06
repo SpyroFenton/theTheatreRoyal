@@ -29,21 +29,32 @@ public class FrontEndController {
 		String choice = null;
 		while (choice == null) {
 
-			choice = in.getText("Please choose an option: 1.List shows, 2.Search by name, 3.Search by date");
+			choice = in.getText("Please choose an option: 1.List shows, 2.Search by name, 3.Search by date, Exit");
 			if (choice.equals("1")) {
 				db.listShowProduction();
-			}
-			if (choice.equals("2")) {
-				db.searchShowByName();
-			}
-			if (choice.equals("3")) {
-				db.searchShowByDate();
-			} else {
-				// System.out.println("Invalid choice");
 				choice = null;
 			}
 
+			else if (choice.equals("2")) {
+				db.searchShowByName();
+				choice = null;
+			}
+
+			else if (choice.equals("3")) {
+				db.searchShowByDate();
+				choice = null;
+
+			} else if (choice.equals("exit")) {
+				System.out.println("Exiting");
+				break;
+			}
+
+			else {
+				System.out.println("Invalid choice");
+				choice = null;
+			}
 		}
+
 	}
 
 	public static void printGreeting() {
