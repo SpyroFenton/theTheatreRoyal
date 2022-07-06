@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -47,4 +48,29 @@ public class DBConnector {
 			System.exit(1);
 		}
 	}
-}
+
+	
+	/**
+	 * select everything from the Person table, convert to a list of Person objects
+	 * and print each Person object.
+	 */
+	public void selectshowProduction() {
+		
+		try {
+			// Create a statement
+			Statement myStmt =  conn.createStatement();
+			
+			// Execute SQL query
+			ResultSet myRs = myStmt.executeQuery("select * FROM showProduction");
+			
+			// Process the result set
+			while (myRs.next()) {
+				System.out.println(myRs.getString("showName"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		}
+	}

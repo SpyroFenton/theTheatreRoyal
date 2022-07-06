@@ -36,4 +36,8 @@ private Scanner scanner;
         String value = scanner.nextLine();
         return value;
     }
+    
+    public void close() {
+        scanner.close();
+    }
 }
