@@ -3,8 +3,6 @@ package controller;
 import util.DBConnector;
 import util.InputReader;
 
-// import model.Person;
-
 public class FrontEndController {
 
 	public FrontEndController() {
@@ -35,8 +33,9 @@ public class FrontEndController {
 			else if (choice.equals("3")) {
 				db.searchShowByDate();
 				choice = null;
+			}
 
-			} else if (choice.equals("exit")) {
+			else if (choice.equals("exit")) {
 				System.out.println("Exiting");
 				break;
 			}

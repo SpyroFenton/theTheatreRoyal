@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-// import model.Person; our model
 
 public class DBConnector {
 	private Connection conn;
@@ -51,6 +50,7 @@ public class DBConnector {
 		}
 	}
 
+	// query to list all shows
 	public void listShowProduction() {
 
 		try {
@@ -71,6 +71,7 @@ public class DBConnector {
 
 	}
 
+	// query to list all shows by name
 	public void searchShowByName() {
 
 		try {
@@ -100,6 +101,7 @@ public class DBConnector {
 
 	}
 
+	// query to list all shows by date
 	public void searchShowByDate() {
 
 		try {
