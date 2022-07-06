@@ -13,13 +13,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
+import util.InputReader;
 // import model.Person; our model
 
 public class DBConnector {
 	private Connection conn;
+	private PreparedStatement myStmt;
+	private ResultSet myRs;
+	private InputReader in;
 
 	public DBConnector() {
 		conn = null;
+		myStmt = null;
+		myRs = null;
+		in = new InputReader();
 	}
 
 	public void connect() {
@@ -66,6 +73,38 @@ public class DBConnector {
 			// Process the result set
 			while (myRs.next()) {
 				System.out.println(myRs.getString("showName"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		}
+	
+	public void searchShowByName() {
+		
+		try {
+			// Prepare a statement
+			myStmt =  conn.prepareStatement("SELECT\r\n"
+					+ "showProduction.showName,\r\n"
+					+ "showProduction.duration,\r\n"
+					+ "performance.showDate,\r\n"
+					+ "performance.showStartTime\r\n"
+					+ "FROM showProduction\r\n"
+					+ "INNER JOIN performance\r\n"
+					+ "ON showProduction.id = performance.showProductionID  \r\n"
+					+ "WHERE showProduction.showName = ?;");
+			
+			// Set the parameters
+			myStmt.setString(1, in.getText("Enter show name: "));
+			
+			// Execute SQL query
+			myRs = myStmt.executeQuery();
+			
+			// Display the result set
+			while (myRs.next()) {
+				System.out.println(myRs.getString("showName") + " " + myRs.getString("duration"));
+			
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

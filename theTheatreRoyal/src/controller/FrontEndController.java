@@ -19,6 +19,9 @@ public class FrontEndController {
 		
 		// method to see if showproduction lists
 		db.selectshowProduction();
+		
+		// method to list shows by name
+		db.searchShowByName();
 	}
 	
 
