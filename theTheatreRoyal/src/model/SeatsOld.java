@@ -1,3 +1,4 @@
+package model;
 //package model;
 //
 //public interface Seats {
