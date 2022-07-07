@@ -1,37 +1,41 @@
 package controller;
 
+import util.DBConnector;
 import util.InputReader;
 
 public class FrontEndController {
-	private String choice = null;
-	
-	public void start() {
-		
-		
-		System.out.println("Welcome. Please choose either: Browse, search, date");
-		InputReader read = new InputReader();
-		
+
+	public FrontEndController() {
+	}
+
+	public static void main(String[] args) {
+		DBConnector db = new DBConnector();
+		InputReader in = new InputReader();
+		// connect to the database
+		db.connect();
+
+		printGreeting();
+
+		String choice = null;
 		while (choice == null) {
-			String choice = read.getInputString();
 
-			if (choice.equalsIgnoreCase("Browse")) {
-				System.out.println("Browsing all shows");
+			choice = in.getText("Please choose an option: 1.List shows, 2.Search by name, 3.Search by date, Exit");
+			if (choice.equals("1")) {
+				db.listShowProduction();
 				choice = null;
-				
 			}
 
-			else if (choice.equalsIgnoreCase("Search")) {
-				System.out.println("Search for show");
+			else if (choice.equals("2")) {
+				db.searchShowByName();
 				choice = null;
-
 			}
 
-			else if (choice.equalsIgnoreCase("date")) {
-				System.out.println("Search by date");
+			else if (choice.equals("3")) {
+				db.searchShowByDate();
 				choice = null;
-				
-				
-			} else if (choice.equalsIgnoreCase("exit")) {
+			}
+
+			else if (choice.equals("exit")) {
 				System.out.println("Exiting");
 				break;
 			}
@@ -41,5 +45,11 @@ public class FrontEndController {
 				choice = null;
 			}
 		}
+
 	}
+
+	public static void printGreeting() {
+		System.out.println("Welcome");
+	}
+
 }
