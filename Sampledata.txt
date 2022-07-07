@@ -1,16 +1,16 @@
 USE theatrebooking;
 
-INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Queen', 'Queen are here to rock your socks off!', '7200', 'English', 'Concert', '0', '10.00', '20.00');
+INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Queen', 'Queen are here to rock your socks off!', '120', 'English', 'Concert', '0', '10.00', '20.00');
 
-INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Le Figaro', 'Mozarts back with a brand new track!', '10800', 'Italian', 'Opera', '1',  '6.00', '12.00');
+INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Le Figaro', 'Mozarts back with a brand new track!', '180', 'Italian', 'Opera', '1',  '6.00', '12.00');
 
-INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Les Miserable', 'The French are back with a revolution. King Louis is a bit worried', '7200', 'English', 'Musical', '0', '9.00', '14.00');
+INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Les Miserable', 'The French are back with a revolution. King Louis is a bit worried', '120', 'English', 'Musical', '0', '9.00', '14.00');
 
-INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Shakespeare: To be, or not be', 'A new take on the Shakespeare play Hamlet', '5400', 'English', 'Theatre', '0', '5.00', '10.00');
+INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Shakespeare: To be, or not be', 'A new take on the Shakespeare play Hamlet', '90', 'English', 'Theatre', '0', '5.00', '10.00');
 
-INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Bugsy Malone', 'The kids are back with swing', '9000', 'English', 'Musical', '1', '10.00', '7.00');
+INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Bugsy Malone', 'The kids are back with swing', '150', 'English', 'Musical', '1', '10.00', '7.00');
 
-INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Adele', 'Latest hits from the album 104', '7200', 'English', 'Concert', '1', '20.00', '30.00');
+INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Adele', 'Latest hits from the album 104', '120', 'English', 'Concert', '1', '20.00', '30.00');
 
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-10-10', '19:30:00', '120', '80', '1');
 
