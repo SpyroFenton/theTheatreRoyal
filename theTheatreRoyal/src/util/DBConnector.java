@@ -43,7 +43,7 @@ public class DBConnector {
 		}
 
 		if (conn != null) {
-			// System.out.println("Connection established.");
+			System.out.println("Connection established.");
 		} else {
 			System.out.println("Connection null still.");
 			System.exit(1);
