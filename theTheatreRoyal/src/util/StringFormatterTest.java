@@ -14,6 +14,18 @@ public class StringFormatterTest {
 		assertEquals("£10.03", sf.formatPrice(10.034538297483785235));
 		
 	}
+	@Test
+	void formatDurationTest() {
+		assertEquals("02:00", sf.formatDuration(120));
+		assertEquals("01:21", sf.formatDuration(81));
+		assertEquals("24:03", sf.formatDuration(1443));
+	}
+	
+	@Test
+	void formatDiscountTest() {
+		assertEquals("-25.0%", sf.formatDiscount(25));
+		assertEquals("-99.0%", sf.formatDiscount(99));
+	}
 }
 //	
 //	@Test(expected = AssertionError.class) 
