@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class User {
 	
-	//private Boolean isEmployee;
+	//private Boolean isEmployee; (undecided)
 	private ArrayList<User> users = new ArrayList<>();
 	private ArrayList<User> employees = new ArrayList<>();
 	private String firstName;
@@ -17,6 +17,18 @@ public class User {
 	private String ccNumber;
 	private String concessionID;
 	
+	/**
+	 * Main constructor used for creating new members
+	 * @param firstName
+	 * @param lastName
+	 * @param streetName
+	 * @param city
+	 * @param postcode
+	 * @param userReferenceID
+	 * @param email
+	 * @param ccNumber
+	 * @param concessionID
+	 */
 	public User(String firstName, String lastName, String streetName, String city, String postcode
 			, int userReferenceID, String email, String ccNumber, String concessionID) {
 		
@@ -29,8 +41,31 @@ public class User {
 		this.email = email;
 		this.ccNumber = ccNumber;
 		this.concessionID = concessionID;
-		
+	
 	}
+	
+	/**
+	 * This is a overloaded constructor, used to generate a new Employee record
+	 * @param firstName
+	 * @param lastName
+	 * @param streetName
+	 * @param city
+	 * @param postcode
+	 * @param email
+	 */
+	
+	public User(String firstName, String lastName,  String streetName, String city, String postcode,
+			String email) {
+		
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.streetName = streetName;
+		this.city = city;
+		this.postcode = postcode;
+		this.email = email;
+		
+		
+	} 
 
 	public ArrayList<User> getUsers() {
 		return users;
@@ -44,8 +79,10 @@ public class User {
 		return employees;
 	}
 
-	public void setEmployee(ArrayList<User> employees) {
-		this.employees = employees;
+	
+
+	public void addEmployees(User newEmp) {
+		employees.add(newEmp);
 	}
 
 	public String getFirstName() {
