@@ -11,12 +11,10 @@ public class FrontEndController {
 	public static void main(String[] args) {
 		DBConnector db = new DBConnector();
 		InputReader in = new InputReader();
-		BackEndController bec = new BackEndController();
-
 		// connect to the database
 		db.connect();
 
-		bec.printGreeting();
+		printGreeting();
 
 		String choice = null;
 		while (choice == null) {
@@ -48,6 +46,10 @@ public class FrontEndController {
 			}
 		}
 
+	}
+
+	public static void printGreeting() {
+		System.out.println("Welcome");
 	}
 
 }
