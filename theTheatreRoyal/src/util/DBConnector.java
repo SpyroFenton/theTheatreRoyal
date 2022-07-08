@@ -88,8 +88,12 @@ public class DBConnector {
 			// Execute SQL query
 			myRs = myStmt.executeQuery();
 
+			System.out.println();
+			System.out.println("Here are all available shows by name:");
+
 			// Display the result set
 			while (myRs.next()) {
+
 				System.out.println(
 						"Show name: " + myRs.getString("showName") + " Duration: " + myRs.getString("duration"));
 
@@ -117,8 +121,12 @@ public class DBConnector {
 			// Execute SQL query
 			myRs = myStmt.executeQuery();
 
+			System.out.println();
+			System.out.println("Here are all available shows by date:");
+
 			// Display the result set
 			while (myRs.next()) {
+
 				System.out.println(
 						"Show name: " + myRs.getString("showName") + " Duration: " + myRs.getString("duration"));
 
