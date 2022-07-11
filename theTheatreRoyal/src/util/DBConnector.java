@@ -10,21 +10,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import model.User;
-
 public class DBConnector {
 	private Connection conn;
 	private PreparedStatement myStmt;
 	private ResultSet myRs;
 	private InputReader in;
-	private User user;
 
 	public DBConnector() {
 		conn = null;
 		myStmt = null;
 		myRs = null;
 		in = new InputReader();
-		user = new User();
 	}
 
 	public void connect() {
@@ -62,7 +58,7 @@ public class DBConnector {
 			Statement myStmt = conn.createStatement();
 
 			// Execute SQL query
-			myRs = myStmt.executeQuery("select * FROM showProduction");
+			ResultSet myRs = myStmt.executeQuery("select * FROM showProduction");
 
 			// Process the result set
 			while (myRs.next()) {
@@ -80,10 +76,10 @@ public class DBConnector {
 
 		try {
 			// Prepare a statement
-			myStmt = conn.prepareStatement(
-					"SELECT showProduction.showName, showProduction.duration, performance.showDate, performance.showStartTime "
-							+ "FROM showProduction " + "INNER JOIN performance "
-							+ "ON showProduction.id = performance.showProductionID "
+			myStmt = conn
+					.prepareStatement("SELECT\r\n" + "showProduction.showName,\r\n" + "showProduction.duration,\r\n"
+							+ "performance.showDate,\r\n" + "performance.showStartTime\r\n" + "FROM showProduction\r\n"
+							+ "INNER JOIN performance\r\n" + "ON showProduction.id = performance.showProductionID  \r\n"
 							+ "WHERE showProduction.showName = ?;");
 
 			// Set the parameters
@@ -114,11 +110,10 @@ public class DBConnector {
 
 		try {
 			// Prepare a statement
-			myStmt = conn.prepareStatement(
-					"SELECT showProduction.showName, showProduction.duration, performance.showDate, performance.showStartTime "
-							+ "FROM showProduction " + "INNER JOIN performance "
-							+ "ON showProduction.id = performance.showProductionID "
-							+ "WHERE performance.showDate = ?;");
+			myStmt = conn.prepareStatement("SELECT\r\n" + "showProduction.showName,\r\n"
+					+ "showProduction.duration,\r\n" + "performance.showDate,\r\n" + "performance.showStartTime\r\n"
+					+ "FROM showProduction\r\n" + "INNER JOIN performance\r\n"
+					+ "ON showProduction.id = performance.showProductionID  \r\n" + "WHERE performance.showDate = ?;");
 
 			// Set the parameters
 			myStmt.setString(1, in.getText("Enter show date in YYYY-MM-DD: "));
@@ -140,45 +135,6 @@ public class DBConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
 
-	public void addUserInfo() {
-		user.setFirstName(in.getText("Enter first name"));
-		user.setLastName(in.getText("Enter last name"));
-		user.setAddressLine1(in.getText("Enter first line of address"));
-		user.setAddressLine2(in.getText("Enter second line of address"));
-		user.setCity(in.getText("Enter city"));
-		user.setPostcode(in.getText("Enter postcode"));
-		user.setEmail(in.getText("Enter eamil"));
-		user.setPhoneNo(in.getText("Enter phone number"));
-		user.setCcNumber(in.getText("Enter credit card number"));
-
-		try {
-			// Prepare a statement
-			myStmt = conn.prepareStatement(
-					"INSERT INTO customer (firstName, lastName, addressLine1, addressLine2, ciity, postcode, email, phoneNumber, creditCard) "
-							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-
-			// Set the parameters
-			myStmt.setString(1, user.getFirstName());
-			myStmt.setString(2, user.getLastName());
-			myStmt.setString(3, user.getAddressLine1());
-			myStmt.setString(4, user.getAddressLine2());
-			myStmt.setString(5, user.getCity());
-			myStmt.setString(6, user.getPostcode());
-			myStmt.setString(7, user.getEmail());
-			myStmt.setString(8, user.getPhoneNo());
-			myStmt.setString(9, user.getCcNumber());
-
-			// Execute SQL query
-			myStmt.executeUpdate();
-
-			// System.out.println();
-			System.out.println("Insert complete");
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

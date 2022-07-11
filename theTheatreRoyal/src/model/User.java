@@ -1,49 +1,49 @@
 package model;
 
 public class User {
-
+    
 	private String firstName;
-	private String lastName;
-	private String addressLine1;
-	private String addressLine2;
-	private String city;
-	private String postcode;
-	private String email;
-	private String phoneNo;
-	private String ccNo;
-	private boolean isEmployee;
-
-	/**
-	 * Main constructor used for creating new members
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param streetName
-	 * @param city
-	 * @param postcode
-	 * @param userReferenceID
-	 * @param email
-	 * @param ccNumber
-	 */
-	public User() {
-
-		this.firstName = null;
-		this.lastName = null;
-		this.addressLine1 = null;
-		this.addressLine2 = null;
-		this.city = null;
-		this.postcode = null;
-		this.email = null;
-		this.phoneNo = null;
-		this.ccNo = null;
-		this.isEmployee = false;
-
-	}
-
-	/**
-	 * generated getters and setters
-	 *
-	 */
+    private String lastName;
+    private String addressLine1;
+    private String addressLine2;
+    private String city;
+    private String postcode;
+    private String email;
+    private String phoneNo;
+    private String ccNo;
+    private boolean isEmployee;
+    
+    /**
+     * Main constructor used for creating new members
+     * @param firstName
+     * @param lastName
+     * @param streetName
+     * @param city
+     * @param postcode
+     * @param userReferenceID
+     * @param email
+     * @param ccNumber
+     */
+    public User(String firstName, String lastName, String addressLine1, String addressLine2, String city, String postcode
+            , String email, String phoneNo, String ccNumber, boolean isEmployee) {
+        
+    	this.firstName = firstName;
+        this.lastName = lastName;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.postcode = postcode;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.ccNo = ccNumber;
+        this.isEmployee = isEmployee;
+    
+    }
+    
+    /**
+     * generated getters and setters
+     *
+     */
 
 	public String getFirstName() {
 		return firstName;
@@ -124,5 +124,7 @@ public class User {
 	public void setEmployee(boolean isEmployee) {
 		this.isEmployee = isEmployee;
 	}
-
+    
+    
 }
+   
