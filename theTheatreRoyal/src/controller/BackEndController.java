@@ -39,6 +39,7 @@ public class BackEndController {
 				break;
 			case 3:
 				System.out.println("Insert basket method");
+				db.addUserInfo();
 				loopBackMenu();
 				break;
 			case 4:
