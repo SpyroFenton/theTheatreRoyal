@@ -6,10 +6,23 @@ public class Basket {
 
     private ArrayList<Ticket> tickets;
     private Double basketTotal;
+    private boolean postage;
     
     public Basket() {
         tickets = new ArrayList<>();
         basketTotal = 0.00;
+        postage = false;
+    }
+    
+    public void applyPostage() {
+    	postage = true;
+    	for (int i = 0; i < tickets.size(); i++) {
+    		tickets.get(i).setCollectionID("Posted");
+    	}
+    }
+    
+    public boolean getPostage() {
+    	return postage;
     }
     
     /**
@@ -25,12 +38,42 @@ public class Basket {
     
     public double getBasketTotal() {
     	double t = 0.00;
-    	for (int i = 0; i < tickets.size(); i++) {	
-    		t = t + tickets.get(i).getPrice();
+    	// get price of all tickets without postage
+    	if (postage = false) {
+			for (int i = 0; i < tickets.size(); i++) {
+				t = t + tickets.get(i).getPrice();
+			}
+			basketTotal = t;
+			return basketTotal;
+		} 
+    	// get price of all tickets with postage calculated
+    	else {
+			for (int i = 0; i < tickets.size(); i++) {
+				t = t + tickets.get(i).getPrice();
+			}
+			basketTotal = t;
+			// find which tickets have postage applied and store that in a variable
+			int n = 0;
+			for (int i = 0; i < tickets.size(); i++) {
+				if (tickets.get(i).getConcession() != null) {
+					n = n + 1;
+				}
+			}
+			// all tickets are concessions no postage fee
+			if (n == tickets.size()) {
+				return basketTotal;
+			} 
+			// if at least 1 or more, but not all are concessions then add 1.00 
+			else if (n >= 1) {
+				basketTotal = basketTotal + 1.00;
+			} 
+			// otherwise add 1.00 for all tickets in arrayList
+			else {
+				basketTotal = basketTotal + (tickets.size() * 1.00);
+			}
+			return basketTotal;
     	}
-    	basketTotal = t;
-    	return basketTotal;
-    }
+	}
     
     /**
      * 
