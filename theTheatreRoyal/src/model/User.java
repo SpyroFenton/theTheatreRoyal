@@ -5,8 +5,8 @@ public class User {
 	private int userReferenceID;
 	private String firstName;
     private String lastName;
-    private String street;
-    private String city;
+    private String addressLine1;
+    private String addressLine2;
     private String postcode;
     private String email;
     private String phoneNo;
@@ -24,14 +24,14 @@ public class User {
      * @param email
      * @param ccNumber
      */
-    public User(int userReferenceID, String firstName, String lastName, String street, String city, String postcode
+    public User(int userReferenceID, String firstName, String lastName, String addressLine1, String addressLine2, String postcode
             , String email, String phoneNo, String ccNumber, boolean isEmployee) {
         
     	this.userReferenceID = userReferenceID;
     	this.firstName = firstName;
         this.lastName = lastName;
-        this.street = street;
-        this.city = city;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
         this.postcode = postcode;
         this.email = email;
         this.phoneNo = phoneNo;
@@ -70,19 +70,19 @@ public class User {
 	}
 
 	public String getStreet() {
-		return street;
+		return addressLine1;
 	}
 
 	public void setStreet(String street) {
-		this.street = street;
+		this.addressLine1 = street;
 	}
 
 	public String getCity() {
-		return city;
+		return addressLine2;
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.addressLine2 = city;
 	}
 
 	public String getPostcode() {
