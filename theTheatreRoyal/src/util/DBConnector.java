@@ -193,7 +193,7 @@ public class DBConnector {
 		try {
 			// Prepare a statement
 			myStmt = conn.prepareStatement(
-					"INSERT INTO customer (firstName, lastName, addressLine1, addressLine2, ciity, postcode, email, phoneNumber, creditCard) "
+					"INSERT INTO customer (firstName, lastName, addressLine1, addressLine2, city, postcode, email, phoneNumber, creditCard) "
 							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
 			// Set the parameters
