@@ -24,10 +24,9 @@ public class User {
      * @param email
      * @param ccNumber
      */
-    public User(int userReferenceID, String firstName, String lastName, String addressLine1, String addressLine2, String postcode
+    public User(String firstName, String lastName, String addressLine1, String addressLine2, String postcode
             , String email, String phoneNo, String ccNumber, boolean isEmployee) {
         
-    	this.userReferenceID = userReferenceID;
     	this.firstName = firstName;
         this.lastName = lastName;
         this.addressLine1 = addressLine1;
@@ -44,14 +43,6 @@ public class User {
      * generated getters and setters
      *
      */
-
-	public int getUserReferenceID() {
-		return userReferenceID;
-	}
-
-	public void setUserReferenceID(int userReferenceID) {
-		this.userReferenceID = userReferenceID;
-	}
 
 	public String getFirstName() {
 		return firstName;

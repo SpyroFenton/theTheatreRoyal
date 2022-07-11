@@ -7,6 +7,6 @@ public class TimeStamp {
 	private static final SimpleDateFormat dateTimeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public void getTimestamp() {
-		Timestamp timestamp = new Timestamp();
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	}
 }
