@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import controller.BackEndController;
 import model.User;
 
 public class DBConnector {
@@ -54,20 +55,57 @@ public class DBConnector {
 		}
 	}
 
+	// method to show data
+	public void printShowData(ResultSet myRs) {
+
+		try {
+
+			BackEndController bec = new BackEndController();
+			System.out.println();
+			System.out.println(bec.formatter());
+			System.out.println("Show ID: " + myRs.getString("performance.id"));
+			System.out.println("Name: " + myRs.getString("showProduction.showName"));
+			System.out.println("Description: " + myRs.getString("showProduction.showDescription"));
+			System.out.println("Date: " + myRs.getString("performance.showDate"));
+			System.out.println("Duration: " + myRs.getString("showProduction.duration") + " minutes");
+			System.out.println("Language: " + myRs.getString("showProduction.language"));
+			System.out.println("Genre: " + myRs.getString("showProduction.typeID"));
+			System.out.println(bec.formatter());
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	// Select statement variables
+	public String selectStatement() {
+		return "SELECT showProduction.showName, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice, "
+				+ "performance.id, performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle "
+				+ "FROM showProduction " + "INNER JOIN performance "
+				+ "ON showProduction.id = performance.showProductionID";
+	}
+
 	// query to list all shows
 	public void listShowProduction() {
 
 		try {
+			int rowcount = 0;
+
 			// Create a statement
 			Statement myStmt = conn.createStatement();
 
 			// Execute SQL query
-			ResultSet myRs = myStmt.executeQuery("select * FROM showProduction");
+			ResultSet myRs = myStmt.executeQuery(selectStatement());
 
 			// Process the result set
 			while (myRs.next()) {
-				System.out.println("Show name: " + myRs.getString("showName"));
+				printShowData(myRs);
+				rowcount = myRs.getRow();
 			}
+			// Display total results
+			System.out.println("Total results: " + rowcount);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,12 +117,10 @@ public class DBConnector {
 	public void searchShowByName() {
 
 		try {
+			int rowcount = 0;
+
 			// Prepare a statement
-			myStmt = conn.prepareStatement(
-					"SELECT showProduction.showName, showProduction.duration, performance.showDate, performance.showStartTime "
-							+ "FROM showProduction " + "INNER JOIN performance "
-							+ "ON showProduction.id = performance.showProductionID "
-							+ "WHERE showProduction.showName = ?;");
+			myStmt = conn.prepareStatement(selectStatement() + " WHERE showProduction.showName = ?;");
 
 			// Set the parameters
 			myStmt.setString(1, in.getText("Enter show name: "));
@@ -97,11 +133,11 @@ public class DBConnector {
 
 			// Display the result set
 			while (myRs.next()) {
-
-				System.out.println(
-						"Show name: " + myRs.getString("showName") + " Duration: " + myRs.getString("duration"));
-
+				printShowData(myRs);
+				rowcount = myRs.getRow();
 			}
+			// Display total results
+			System.out.println("Total results: " + rowcount);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,12 +149,10 @@ public class DBConnector {
 	public void searchShowByDate() {
 
 		try {
+			int rowcount = 0;
+
 			// Prepare a statement
-			myStmt = conn.prepareStatement(
-					"SELECT showProduction.showName, showProduction.duration, performance.showDate, performance.showStartTime "
-							+ "FROM showProduction " + "INNER JOIN performance "
-							+ "ON showProduction.id = performance.showProductionID "
-							+ "WHERE performance.showDate = ?;");
+			myStmt = conn.prepareStatement(selectStatement() + " WHERE performance.showDate = ?;");
 
 			// Set the parameters
 			myStmt.setString(1, in.getText("Enter show date in YYYY-MM-DD: "));
@@ -128,18 +162,21 @@ public class DBConnector {
 
 			System.out.println();
 			System.out.println("Here are all available shows by date:");
+			System.out.println();
 
 			// Display the result set
 			while (myRs.next()) {
-
-				System.out.println(
-						"Show name: " + myRs.getString("showName") + " Duration: " + myRs.getString("duration"));
-
+				printShowData(myRs);
+				rowcount = myRs.getRow();
 			}
+			// Display total results
+			System.out.println("Total results: " + rowcount);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	public void addUserInfo() {
@@ -174,7 +211,7 @@ public class DBConnector {
 			myStmt.executeUpdate();
 
 			// System.out.println();
-			System.out.println("Insert complete");
+			// System.out.println("Insert complete");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -183,20 +220,18 @@ public class DBConnector {
 	}
 
 	public void insertTransactionID() {
+
 		try {
+			// Prepare a statement
+			String sqlInsert = "INSERT INTO transactionID (timestamp, CustomerID) VALUES (?, LAST_INSERT_ID());";
+			myStmt = conn.prepareStatement(sqlInsert);
 
-			String sqlInsert = "INSERT INTO transactionID (timestamp) VALUES (?)";
-			PreparedStatement preparedStatement = conn.prepareStatement(sqlInsert);
+			// Set the parameters
+			myStmt.setTimestamp(1, TimeStamp.getTimestamp());
 
-			preparedStatement.setTimestamp(1, TimeStamp.getTimestamp());
-			// missing customer ID information - this is key!!!
-			//
-			// TO DO !!
-			//
+			// Execute SQL query
+			myStmt.executeUpdate();
 
-			Statement myStmt = preparedStatement;
-
-			myStmt.executeUpdate(sqlInsert);
 			System.out.println("Insert complete.");
 
 		} catch (SQLException e) {

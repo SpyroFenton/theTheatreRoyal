@@ -1,8 +1,6 @@
 package controller;
 
 public class FrontEndController {
-	private BackEndController bec;
-
 	public FrontEndController() {
 	}
 

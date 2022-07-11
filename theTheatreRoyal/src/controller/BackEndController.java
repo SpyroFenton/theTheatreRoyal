@@ -13,18 +13,19 @@ public class BackEndController {
 
 		// connect to the database
 		db.connect();
-
 	}
 
 	public void mainMenu() {
 
 		System.out.println("Welcome please type a number to choose an option");
 		System.out.println();
+		System.out.println(formatter());
 		System.out.println("1 - View What's On/Calendar");
 		System.out.println("2 - Buy ticket/(S)");
 		System.out.println("3 - Basket");
 		System.out.println("4 - Employee login");
 		System.out.println("5 - Exit");
+		System.out.println(formatter());
 
 		boolean exit = false;
 
@@ -39,7 +40,9 @@ public class BackEndController {
 				break;
 			case 3:
 				System.out.println("Insert basket method");
-				loopBackMenu();
+				db.addUserInfo();
+				db.insertTransactionID(); // only added as test
+				loopBackMenu(); // only added as test
 				break;
 			case 4:
 				System.out.println("Insert employee method");
@@ -55,29 +58,34 @@ public class BackEndController {
 		exit();
 	}
 
+	public String formatter() {
+		// return "--------------------------------------------------------------";
+		return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+	}
+
 	public void showCalendar() {
 
 		System.out.println("Please choose an option");
-		System.out.println();
+		// System.out.println();
+		System.out.println(formatter());
 		System.out.println("1 - View all shows");
 		System.out.println("2 - Browse shows by name");
 		System.out.println("3 - Browse shows by date");
 		System.out.println("4 - Main menu");
 		System.out.println("5 - Exit");
+		System.out.println(formatter());
 
 		boolean exit = false;
 
 		do {
 			switch (in.getNumber("")) {
 			case 1:
-				System.out.println("Here are all available shows");
-				System.out.println();
+				System.out.println("Here are all available shows:");
 				db.listShowProduction();
 				System.out.println();
 				loopBackMenu();
 				break;
 			case 2:
-
 				db.searchShowByName();
 				System.out.println();
 				loopBackMenu();
@@ -107,10 +115,12 @@ public class BackEndController {
 
 	public void loopBackMenu() {
 		System.out.println("Please choose an option");
-		System.out.println();
+		// System.out.println();
+		System.out.println(formatter());
 		System.out.println("1 - Buy ticket/(S)");
 		System.out.println("2 - Show Calendar");
 		System.out.println("3 - Main menu");
+		System.out.println(formatter());
 
 		switch (in.getNumber("")) {
 		case 1:
@@ -130,11 +140,13 @@ public class BackEndController {
 
 	public void basket() {
 		System.out.println("Please choose an option");
-
+		// System.out.println();
+		System.out.println(formatter());
 		System.out.println("1 - Go to payment");
 		System.out.println("2 - Buy ticket/(S)");
 		System.out.println("3 - Show Calendar");
 		System.out.println("4 - Main menu");
+		System.out.println(formatter());
 
 		switch (in.getNumber("")) {
 		case 1:
