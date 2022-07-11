@@ -1,6 +1,5 @@
 package model;
 
-import util.CollectionID;
 import util.Concessions;
 import util.StringFormatter;
 
@@ -115,10 +114,6 @@ public class Ticket {
 	// applies the concession from the Concessions enum class
 	public void applyConcession() {
 		price = price * Concessions.Discounted.concessionApplied;
-	}
-	
-	public void applyPostage() {
-		price = price + CollectionID.Post.collectionID;
 	}
 	
 	/**

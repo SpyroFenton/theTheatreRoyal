@@ -22,4 +22,6 @@ class BasketTest {
 		assertEquals(0, basket.getNoOfTotalTickets());
 		assertEquals(0.00, basket.getBasketTotal());
 	}
+	
+	
 }
