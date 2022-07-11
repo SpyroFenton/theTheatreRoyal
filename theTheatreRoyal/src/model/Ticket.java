@@ -1,6 +1,5 @@
 package model;
 
-import util.CollectionID;
 import util.Concessions;
 import util.StringFormatter;
 
@@ -22,16 +21,16 @@ public class Ticket {
     
     
     public Ticket(int transactionID, String performanceID, String showName, Double price, String startTime, String date,
-            String seatType, String concession, String collectionID) {
+            String seatType) {
         this.transactionID = transactionID;
         this.performanceID = performanceID;
         this.showName = showName;
         this.startTime = startTime;
         this.date = date;
         this.seatType = seatType;
-        this.concession = concession;
+        this.concession = null;
         this.price = price;
-        this.collectionID = collectionID;
+        this.collectionID = null;
         
         sf = new StringFormatter();
     }
@@ -96,10 +95,6 @@ public class Ticket {
 		return concession;
 	}
 
-	public void setConcession(String concession) {
-		this.concession = concession;
-	}
-
 	public String getLocation() {
 		return location;
 	}
@@ -113,12 +108,10 @@ public class Ticket {
 	} 
 	
 	// applies the concession from the Concessions enum class
-	public void applyConcession() {
+	// type of concession in a String must be entered
+	public void applyConcession(String concession) {
+		this.concession = concession;
 		price = price * Concessions.Discounted.concessionApplied;
-	}
-	
-	public void applyPostage() {
-		price = price + CollectionID.Post.collectionID;
 	}
 	
 	/**
