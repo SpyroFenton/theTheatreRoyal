@@ -20,7 +20,7 @@ public class BackEndController {
 
 		System.out.println("Welcome please type a number to choose an option");
 		System.out.println();
-		System.out.println("1 - Show Calendar");
+		System.out.println("1 - View What's On/Calendar");
 		System.out.println("2 - Buy ticket/(S)");
 		System.out.println("3 - Basket");
 		System.out.println("4 - Employee login");

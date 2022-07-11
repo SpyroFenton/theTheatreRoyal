@@ -135,6 +135,27 @@ public class DBConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 
+	public void insertTransactionID() {
+		try {
+
+			String sqlInsert = "INSERT INTO transactionID (timestamp) VALUES (?)";
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlInsert);
+
+			preparedStatement.setTimestamp(1, TimeStamp.getTimestamp());
+			// missing customer ID information - this is key!!!
+			//
+			//TO DO !!
+			//
+
+			Statement myStmt = preparedStatement;
+
+			myStmt.executeUpdate(sqlInsert);
+			System.out.println("Insert complete.");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

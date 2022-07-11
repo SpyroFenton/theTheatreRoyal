@@ -6,16 +6,16 @@ import java.text.SimpleDateFormat;
 public class TimeStamp {
 	private static final SimpleDateFormat dateTimeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	// prints out timestamp
-	public static void printTimestamp() {
+	// this method may not be needed
+	public static Timestamp getTimestamp() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		System.out.println(dateTimeStamp.format(timestamp));
+		return timestamp;
 	}
 	
-	// this method may not be needed
-	public static String getTimestamp() {
+	public String toString() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		return dateTimeStamp.format(timestamp);
+		dateTimeStamp.format(timestamp);
+		return timestamp.toString();
 	}
 	
 }
