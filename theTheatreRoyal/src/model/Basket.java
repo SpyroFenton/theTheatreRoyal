@@ -53,11 +53,11 @@ public class Basket {
     public void printAllTickets() {
     	int t = 0;
     	for (Ticket ticket : tickets) {
-    		System.out.println("Printing: Ticket " + t);
+    		System.out.println("\n **Printing: Ticket " + t +"**\n");
     		ticket.printTicket();
     		t++;
     	}
-    	System.out.println("All tickets have been printed and stored to your Customer ID.");
+    	System.out.println("All tickets have been printed and stored to your Transaction ID which can be found on your ticket.");
     	System.out.println("Thank you and we look forward to seeing you!");
     	clearBasket();
     }
