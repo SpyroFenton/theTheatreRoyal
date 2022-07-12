@@ -181,26 +181,65 @@ public class BackEndController {
 	}
 
 	public void newTicket() {
-		// this is seat selection
+		// user selects seat Type
+		//
+		// CREATE Instance of ticket i.e. Ticket ticket = new Ticket();
+		//
 		System.out.println("Enter Seat type:");
 		System.out.println("1- Circle");
-		System.out.println("2- Stall");
-
+		System.out.println("2- Stalls");
+		String seatType = "";
 		switch (in.getNumber("")) {
 		case 1:
 			// set circle price in ticket
-
+			seatType = "Circle";
+			// ticket.setPrice( data from the performance show)
 			break;
 		case 2:
 			// set stall price in ticket
-
+			seatType = "Stalls";
+			// ticket.setPrice( data from the performance show)
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
 		}
 
-		ticket.setConcession(in.getText("Enter concession type[regular/student/under16]"));
-		// add to array list?
+		// user select concession options
+		
+		System.out.println("Enter Concession type:");
+		System.out.println("1- Regular (no concession)");
+		System.out.println("2- Student");
+		System.out.println("3- Under 16");
+		String concession = "";
+		switch (in.getNumber("")) {
+		case 1:
+			// set circle price in ticket
+			concession = "Regular";
+			// ticket.setConcession(Regular)
+			break;
+		case 2:
+			// set stall price in ticket
+			concession = "Student";
+			// ticket.setConcession(---)
+			// ticket.applyConcession
+			break;
+		case 3:
+			// set stall price in ticket
+			concession = "Under 16";
+			// ticket.setConcession(Regular)
+			// ticket.applyConcession
+			break;
+		default:
+			System.out.println("Error: You must choose a valid option");
+		}
+		
+		// set ticket info (showName, duration bla bla bla)
+		// basket.addTicket(ticket)
+		
+		// select an option
+		// get out of menu
+		// view basket
+		
 	}
 
 	public void seatSelector() {
@@ -253,7 +292,17 @@ public class BackEndController {
 		System.out.println("In order to confirm your payment please enter your Credit Card number");
 		String cc = in.getText("");
 		@SuppressWarnings("unused") // boolean valid is not current used
-		boolean valid = inputValidator.validateCreditCard(cc);
+		
+		// OVERRIDE VALIDATE METHOD FOR NOW
+		// TO DO 
+		//
+		//
+		//
+		
+		//
+		//
+		// boolean valid = inputValidator.validateCreditCard(cc);
+		boolean valid = true;
 		if (valid = true) {
 			System.out.println("Details are correct. Processing your order now.");
 		} else if (valid = false) {
