@@ -2,16 +2,22 @@ package model;
 
 import java.util.ArrayList;
 
+import util.StringFormatter;
+
 public class Basket {
 
     private ArrayList<Ticket> tickets;
     private Double basketTotal;
     private boolean postage;
+    private StringFormatter sf;
     
     public Basket() {
         tickets = new ArrayList<>();
         basketTotal = 0.00;
         postage = false;
+        
+        sf = new StringFormatter();
+        
     }
     
     public void applyPostage() {
@@ -91,7 +97,8 @@ public class Basket {
     }
     
     /**
-     * print all tickets
+     * print all tickets method
+     * not currently implemented
      */
     public void printAllTickets() {
     	int t = 0;
@@ -103,5 +110,22 @@ public class Basket {
     	System.out.println("All tickets have been printed and stored to your Transaction ID which can be found on your ticket.");
     	System.out.println("Thank you and we look forward to seeing you!");
     	clearBasket();
+    }
+    
+    public void displayBasket() {
+    	System.out.println("Your Shopping Basket:/n");
+    	int tn = 1;
+    	for (int i = 0; i < tickets.size(); i++) {
+    		String sN = tickets.get(i).getShowName(); 
+    		String sD = tickets.get(i).getDate();
+    		String sT = tickets.get(i).getStartTime();
+    		String sE = tickets.get(i).getSeatType();
+    		String co = tickets.get(i).getConcession();
+    		String pr = tickets.get(i).getFormatPrice();
+    		System.out.println("Ticket " + tn + "| Concert: " + sN + " Date: " + sD + " Time: " + sT + " Seat: " + sE + " Conc: " + co + " Price: " + pr);
+    		tn++;
+    	}
+    	double bt = getBasketTotal();
+    	System.out.println("\nThe total of your basket is: " + sf.formatPrice(bt) + "\n");
     }
 }

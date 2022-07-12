@@ -61,6 +61,10 @@ public class Ticket {
 	public Double getPrice() {
 		return price;
 	}
+	
+	public String getFormatPrice() {
+		return sf.formatPrice(price);
+	}
 
 	public void setPrice(Double price) {
 		this.price = price;
