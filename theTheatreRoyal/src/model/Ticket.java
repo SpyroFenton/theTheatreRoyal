@@ -4,33 +4,35 @@ import util.Concessions;
 import util.StringFormatter;
 
 public class Ticket {
-
-	private int transactionID;
-	private String performanceID;
-	private String showName;
-	private final String location = "The Theatre Royal";
-	private Double price;
-	private String startTime;
-	private String date;
-	private String seatType;
-	private String concession;
-	private String collectionID;
-
-	private StringFormatter sf;
-
-	public Ticket() {
-		this.transactionID = 0;
-		this.performanceID = null;
-		this.showName = null;
-		this.startTime = null;
-		this.date = null;
-		this.seatType = null;
-		this.concession = null;
-		this.price = null;
-		this.collectionID = null;
-
-		sf = new StringFormatter();
-	}
+    
+    private int transactionID;
+    private String performanceID;
+    private String showName;
+    private final String location = "The Theatre Royal";
+    private Double price;
+    private String startTime;
+    private String date;
+    private String seatType;
+    private String concession; 
+    private String collectionID;
+    
+    
+    private StringFormatter sf;
+    
+    
+    public Ticket() {
+        this.transactionID = 0;
+        this.performanceID = null;
+        this.showName = null;
+        this.startTime = null;
+        this.date = null;
+        this.seatType = null;
+        this.concession = null;
+        this.price = null;
+        this.collectionID = null;
+        
+        sf = new StringFormatter();
+    }
 
 	public int getTransactionID() {
 		return transactionID;
@@ -102,19 +104,19 @@ public class Ticket {
 
 	public void setCollectionID(String collectionID) {
 		this.collectionID = collectionID;
-	}
-
+	} 
+	
 	// applies the concession from the Concessions enum class
 	// type of concession in a String must be entered
 	public void applyConcession(String concession) {
 		this.concession = concession;
 		price = price * Concessions.Discounted.concessionApplied;
 	}
-
+	
 	/**
 	 * Print ticket method for displaying a ticket
 	 */
-
+	
 	public void printTicket() {
 		System.out.println("**********************************");
 		System.out.println("             TICKET               ");
@@ -127,5 +129,5 @@ public class Ticket {
 		System.out.println("          Enjoy the show!         ");
 		System.out.println("**********************************");
 	}
-
+  
 }

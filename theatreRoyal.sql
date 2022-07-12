@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema theatrebooking
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `theatrebooking` DEFAULT CHARACTER SET utf8mb4 ;
+CREATE SCHEMA IF NOT EXISTS `theatrebooking` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
 -- Schema new_schema1
 -- -----------------------------------------------------
@@ -44,6 +44,7 @@ INSERT INTO showProduction (showName, showDescription, duration, language, typeI
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Bugsy Malone', 'The kids are back with swing', '150', 'English', 'Musical', '1', '10.00', '7.00');
 
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Adele', 'Latest hits from the album 104', '120', 'English', 'Concert', '1', '20.00', '30.00');
+
 
 -- -----------------------------------------------------
 -- Table `theatrebooking`.`performance`
@@ -83,6 +84,7 @@ INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, total
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-12-10', '18:00:00', '120', '80', '5');
 
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-12-14', '20:00:00', '120', '80', '6');
+
 
 -- -----------------------------------------------------
 -- Table `theatrebooking`.`customer`
@@ -141,7 +143,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `theatrebooking`.`concessionID` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `type` ENUM('Student', 'Under 16') NULL,
+  `type` ENUM('Regular', 'Student', 'Under 16') NULL,
   `discount` DOUBLE NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
