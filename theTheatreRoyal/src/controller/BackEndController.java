@@ -45,8 +45,8 @@ public class BackEndController {
 				break;
 			case 2:
 				System.out.println("Insert basket method");
-				// basket.
-				loopBackMenu();
+				viewBasket();
+				// loopBackMenu();
 				break;
 			case 3:
 				System.out.println("Insert employee method");
@@ -170,7 +170,7 @@ public class BackEndController {
 
 		switch (in.getText("")) {
 		case "y":
-			ticketOption();
+			newTicket();
 			break;
 		case "n":
 			buyMethod();
@@ -180,11 +180,46 @@ public class BackEndController {
 		}
 	}
 
-	public void ticketOption() {
-		ticket.setSeatType(in.getText("Enter Seat type [Circle/Stall]"));
+	public void newTicket() {
+		// this is seat selection
+		System.out.println("Enter Seat type:");
+		System.out.println("1- Circle");
+		System.out.println("2- Stall");
+
+		switch (in.getNumber("")) {
+		case 1:
+			// set circle price in ticket
+
+			break;
+		case 2:
+			// set stall price in ticket
+
+			break;
+		default:
+			System.out.println("Error: You must choose a valid option");
+		}
+
+		ticket.setConcession(in.getText("Enter concession type[regular/student/under16]"));
 		// add to array list?
-		ticket.setSeatType(in.getText("Enter Seat type [Circle/Stall]"));
-		// add to array list?
+	}
+
+	public void seatSelector() {
+		System.out.println("Enter Seat type:");
+		System.out.println("1- Circle");
+		System.out.println("2- Stall");
+
+		switch (in.getNumber("")) {
+		case 1:
+			// set circle price in ticket
+
+			break;
+		case 2:
+			// set stall price in ticket
+
+			break;
+		default:
+			System.out.println("Error: You must choose a valid option");
+		}
 	}
 
 	public void viewBasket() {
