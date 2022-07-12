@@ -63,7 +63,7 @@ public class DBConnector {
 			BackEndController bec = new BackEndController();
 			System.out.println();
 			System.out.println(bec.formatter());
-			System.out.println("Show ID: " + myRs.getString("performance.id"));
+			System.out.println("			Performance no." + myRs.getString("performance.id"));
 			System.out.println("Name: " + myRs.getString("showProduction.showName"));
 			System.out.println("Description: " + myRs.getString("showProduction.showDescription"));
 			System.out.println("Date: " + myRs.getString("performance.showDate"));

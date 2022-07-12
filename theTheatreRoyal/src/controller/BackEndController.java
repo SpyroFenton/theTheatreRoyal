@@ -1,15 +1,21 @@
 package controller;
 
+import model.Basket;
+import model.Ticket;
 import util.DBConnector;
 import util.InputReader;
 
 public class BackEndController {
 	private DBConnector db;
 	private InputReader in;
+	private Basket basket;
+	private Ticket ticket;
 
 	public BackEndController() {
 		db = new DBConnector();
 		in = new InputReader();
+		basket = new Basket();
+		ticket = new Ticket();
 
 		// connect to the database
 		db.connect();
@@ -21,10 +27,10 @@ public class BackEndController {
 		System.out.println();
 		System.out.println(formatter());
 		System.out.println("1 - View What's On/Calendar");
-		System.out.println("2 - Buy ticket/(S)");
-		System.out.println("3 - Basket");
-		System.out.println("4 - Employee login");
-		System.out.println("5 - Exit");
+		// System.out.println("2 - Buy ticket/(S)");
+		System.out.println("2 - View basket");
+		System.out.println("3 - Employee login");
+		System.out.println("4 - Exit");
 		System.out.println(formatter());
 
 		boolean exit = false;
@@ -35,20 +41,15 @@ public class BackEndController {
 				showCalendar();
 				break;
 			case 2:
-				System.out.println("Insert Buy ticket/(S) method");
+				System.out.println("Insert basket method");
+				// basket.
 				loopBackMenu();
 				break;
 			case 3:
-				System.out.println("Insert basket method");
-				db.addUserInfo();
-				db.insertTransactionID(); // only added as test
-				loopBackMenu(); // only added as test
-				break;
-			case 4:
 				System.out.println("Insert employee method");
 				loopBackMenu();
 				break;
-			case 5:
+			case 4:
 				exit = true;
 				break;
 			default:
