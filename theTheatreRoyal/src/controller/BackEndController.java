@@ -4,18 +4,21 @@ import model.Basket;
 import model.Ticket;
 import util.DBConnector;
 import util.InputReader;
+import util.InputValidator;
 
 public class BackEndController {
 	private DBConnector db;
 	private InputReader in;
 	private Basket basket;
 	private Ticket ticket;
+	private InputValidator inputValidator;
 
 	public BackEndController() {
 		db = new DBConnector();
 		in = new InputReader();
 		basket = new Basket();
 		ticket = new Ticket();
+		inputValidator = new InputValidator();
 
 		// connect to the database
 		db.connect();
@@ -84,17 +87,19 @@ public class BackEndController {
 				System.out.println("Here are all available shows:");
 				db.listShowProduction();
 				System.out.println();
-				loopBackMenu();
+				buyMethod();
+				// loopBackMenu();
+
 				break;
 			case 2:
 				db.searchShowByName();
 				System.out.println();
-				loopBackMenu();
+				buyMethod();
 				break;
 			case 3:
 				db.searchShowByDate();
 				System.out.println();
-				loopBackMenu();
+				buyMethod();
 				break;
 			case 4:
 				mainMenu();
@@ -139,32 +144,133 @@ public class BackEndController {
 		}
 	}
 
-	public void basket() {
+	public void buyMethod() {
 		System.out.println("Please choose an option");
 		// System.out.println();
 		System.out.println(formatter());
-		System.out.println("1 - Go to payment");
-		System.out.println("2 - Buy ticket/(S)");
-		System.out.println("3 - Show Calendar");
-		System.out.println("4 - Main menu");
+		System.out.println("1 - Buy ticket");
+		System.out.println("2 - Main menu");
 		System.out.println(formatter());
 
 		switch (in.getNumber("")) {
 		case 1:
-			System.out.println("Insert go to payment method");
+			db.userIDInput();
+			showConfirmation();
 			break;
 		case 2:
-			System.out.println("Insert Buy ticket/(S) method");
-			loopBackMenu();
-			break;
-		case 3:
-			showCalendar();
-			break;
-		case 4:
 			mainMenu();
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
 		}
 	}
+
+	public void showConfirmation() {
+		System.out.println("Is this the correct ticket [y/n]");
+
+		switch (in.getText("")) {
+		case "y":
+			ticketOption();
+			break;
+		case "n":
+			buyMethod();
+			break;
+		default:
+			System.out.println("Error: You must choose a valid option");
+		}
+	}
+
+	public void ticketOption() {
+		ticket.setSeatType(in.getText("Enter Seat type [Circle/Stall]"));
+		// add to array list?
+		ticket.setSeatType(in.getText("Enter Seat type [Circle/Stall]"));
+		// add to array list?
+	}
+
+	public void viewBasket() {
+
+		// display contents of basket
+		basket.displayBasket();
+
+		System.out.println("Please choose an option");
+		System.out.println(formatter());
+		System.out.println("1 - Go to payment");
+		System.out.println("2 - Clear basket");
+		System.out.println("3 - Return to main menu");
+		System.out.println(formatter());
+
+		switch (in.getNumber("")) {
+		case 1:
+			paymentMenu();
+			break;
+		case 2:
+			ClearBasket();
+			break;
+		case 3:
+			mainMenu();
+			break;
+		default:
+			System.out.println("Error: You must choose a valid option");
+		}
+	}
+
+	public void paymentMenu() {
+		System.out.println("In order to confirm your payment please enter your Credit Card number");
+		String cc = in.getText("");
+		@SuppressWarnings("unused") // boolean valid is not current used
+		boolean valid = inputValidator.validateCreditCard(cc);
+		if (valid = true) {
+			System.out.println("Details are correct. Processing your order now.");
+		} else if (valid = false) {
+			System.out.println("Please choose an option");
+			System.out.println(formatter());
+			System.out.println("1 - Try again");
+			System.out.println("2 - Back to basket");
+			switch (in.getNumber("")) {
+			case 1:
+				paymentMenu();
+				break;
+			case 2:
+				viewBasket();
+				break;
+			}
+		}
+		//
+		//
+		// Add tickets to database
+		// add the customer to the database
+		// add transaction id table to the database
+		// update the availability in the relative performance database
+		//
+		//
+		//
+		System.out.println("Your tickets have been processed. We look forward to seeing you soon. Thank you.");
+		mainMenu();
+	}
+
+	public void ClearBasket() {
+		if (basket.getNoOfTotalTickets() >= 1) {
+			System.out.println("Are you sure you wish to clear your basket?");
+			System.out.println(formatter());
+			System.out.println("1 - Yes, clear my basket");
+			System.out.println("2 - No, take me back");
+			System.out.println(formatter());
+
+			switch (in.getNumber("")) {
+			case 1:
+				basket.clearBasket();
+				System.out.println("Your basket has been cleared.");
+				mainMenu();
+				break;
+			case 2:
+				viewBasket();
+				break;
+
+			}
+		} else {
+			System.out.println("There are currently no tickets in your basket");
+			viewBasket();
+		}
+	}
+
 }

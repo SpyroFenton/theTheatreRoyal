@@ -70,6 +70,10 @@ public class DBConnector {
 			System.out.println("Duration: " + myRs.getString("showProduction.duration") + " minutes");
 			System.out.println("Language: " + myRs.getString("showProduction.language"));
 			System.out.println("Genre: " + myRs.getString("showProduction.typeID"));
+			System.out.println("Stall Price: £" + myRs.getString("showProduction.stallPrice")
+					+ "	Stall Availibility: " + myRs.getString("performance.totalAvailibilityStalls"));
+			System.out.println("Circle Price: £" + myRs.getString("showProduction.circlePrice")
+					+ "	Circle Availibility: " + myRs.getString("performance.totalAvailibilityCircle"));
 			System.out.println(bec.formatter());
 
 		} catch (SQLException e) {
@@ -179,6 +183,32 @@ public class DBConnector {
 
 	}
 
+	public void userIDInput() {
+
+		try {
+
+			// Prepare a statement
+			myStmt = conn.prepareStatement(selectStatement() + " WHERE performance.id = ?;");
+
+			// Set the parameters
+			myStmt.setString(1, in.getText("Enter performance no. of the ticket you wish to buy"));
+
+			// Execute SQL query
+			myRs = myStmt.executeQuery();
+
+			// Display the result set
+			while (myRs.next()) {
+				printShowData(myRs);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	// this method will be used at the end for payment
 	public void addUserInfo() {
 		user.setFirstName(in.getText("Enter first name"));
 		user.setLastName(in.getText("Enter last name"));
