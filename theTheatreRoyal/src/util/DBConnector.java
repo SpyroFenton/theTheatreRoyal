@@ -11,14 +11,18 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 import controller.BackEndController;
+import model.Ticket;
 import model.User;
 
 public class DBConnector {
+
 	private Connection conn;
 	private PreparedStatement myStmt;
 	private ResultSet myRs;
 	private InputReader in;
 	private User user;
+	private Ticket ticket;
+	String inputID = "";
 
 	public DBConnector() {
 		conn = null;
@@ -26,6 +30,7 @@ public class DBConnector {
 		myRs = null;
 		in = new InputReader();
 		user = new User();
+		ticket = new Ticket();
 	}
 
 	public void connect() {
@@ -70,10 +75,10 @@ public class DBConnector {
 			System.out.println("Duration: " + myRs.getString("showProduction.duration") + " minutes");
 			System.out.println("Language: " + myRs.getString("showProduction.language"));
 			System.out.println("Genre: " + myRs.getString("showProduction.typeID"));
-			System.out.println("Stall Price: £" + myRs.getString("showProduction.stallPrice")
-					+ "	Stall Availibility: " + myRs.getString("performance.totalAvailibilityStalls"));
-			System.out.println("Circle Price: £" + myRs.getString("showProduction.circlePrice")
-					+ "	Circle Availibility: " + myRs.getString("performance.totalAvailibilityCircle"));
+			System.out.println("Stall Price: £" + myRs.getDouble("showProduction.stallPrice")
+					+ "	Stall Availibility: " + myRs.getInt("performance.totalAvailibilityStalls"));
+			System.out.println("Circle Price: £" + myRs.getDouble("showProduction.circlePrice")
+					+ "	Circle Availibility: " + myRs.getInt("performance.totalAvailibilityCircle"));
 			System.out.println(bec.formatter());
 
 		} catch (SQLException e) {
@@ -184,14 +189,14 @@ public class DBConnector {
 	}
 
 	public void userIDInput() {
-
+		ticket.setPerformanceID(in.getText("Enter performance no. of the ticket you wish to buy"));
 		try {
 
 			// Prepare a statement
 			myStmt = conn.prepareStatement(selectStatement() + " WHERE performance.id = ?;");
 
 			// Set the parameters
-			myStmt.setString(1, in.getText("Enter performance no. of the ticket you wish to buy"));
+			myStmt.setString(1, ticket.getPerformanceID());
 
 			// Execute SQL query
 			myRs = myStmt.executeQuery();
@@ -199,6 +204,37 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				printShowData(myRs);
+				// inputID = myRs.getString("performance.id");
+				// Ticket.setPerformanceID(inputID);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public double circlePrice() {
+		double circlePrice = 0;
+		try {
+
+			// Prepare a statement
+			myStmt = conn.prepareStatement(
+					"SELECT showProduction.circlePrice FROM showProduction INNER JOIN performance ON showProduction.id = performance.showProductionID WHERE performance.id = ?;");
+
+			// Set the parameters
+			myStmt.setString(1, ticket.getPerformanceID());
+
+			// Execute SQL query
+			myRs = myStmt.executeQuery();
+
+			// Display the result set
+			while (myRs.next()) {
+				circlePrice = myRs.getDouble("showProduction.circlePrice");
+
+				// System.out.println("Circle Price: £" +
+				// System.out.println(myRs.getDouble("showProduction.circlePrice"));
+				// System.out.println(circlePrice);
 			}
 
 		} catch (SQLException e) {
@@ -206,6 +242,37 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 
+		return circlePrice;
+
+	}
+
+	public double stallsPrice() {
+		double stallsPrice = 0;
+		try {
+
+			// Prepare a statement
+			myStmt = conn.prepareStatement(
+					"SELECT showProduction.stallPrice FROM showProduction INNER JOIN performance ON showProduction.id = performance.showProductionID WHERE performance.id = ?;");
+
+			// Set the parameters
+			myStmt.setString(1, ticket.getPerformanceID());
+
+			// Execute SQL query
+			myRs = myStmt.executeQuery();
+
+			// Display the result set
+			while (myRs.next()) {
+				stallsPrice = myRs.getDouble("showProduction.stallPrice");
+
+				// System.out.println(stallsPrice);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return stallsPrice;
 	}
 
 	// this method will be used at the end for payment
@@ -268,4 +335,5 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 	}
+
 }
