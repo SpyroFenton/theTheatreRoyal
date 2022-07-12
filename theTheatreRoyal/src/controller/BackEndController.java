@@ -166,9 +166,9 @@ public class BackEndController {
 	}
 
 	public void showConfirmation() {
-		System.out.println("Is this the correct ticket [y/n]");
-
-		switch (in.getText("")) {
+		System.out.println("Is this the correct ticket [Y/N]");
+		String reply = in.getText("").toLowerCase();
+		switch (reply) {
 		case "y":
 			newTicket();
 			break;
