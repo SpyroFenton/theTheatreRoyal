@@ -7,14 +7,14 @@ public class Performance {
 	private String startTime;
 	private int circleAvailable;
 	private int stallsAvailable;
-	
-	public Performance(int productionID, int performanceID, String date, String startTime) {
-		this.productionID = productionID;
-		this.performanceID = performanceID;
-		this.date = date;
-		this.startTime = startTime;
-		circleAvailable = 80;
-		stallsAvailable = 120;
+
+	public Performance() {
+		this.productionID = 0;
+		this.performanceID = 0;
+		this.date = null;
+		this.startTime = null;
+		circleAvailable = 0;
+		stallsAvailable = 0;
 	}
 
 	public int getProductionID() {
@@ -52,23 +52,23 @@ public class Performance {
 	public int getCircleAvailable() {
 		return circleAvailable;
 	}
-	
+
 	public int getStallsAvailable() {
 		return stallsAvailable;
 	}
 
 	/**
 	 * methods below represent the availability of seats change when an int
-	 * parameter is passed. This int parameter represents the amount
-	 * of tickets purchased by the User.
+	 * parameter is passed. This int parameter represents the amount of tickets
+	 * purchased by the User.
 	 * 
 	 */
 	public void setCircleAvailable(int purchase) {
-		circleAvailable = circleAvailable - purchase;
+		this.circleAvailable = purchase;
 	}
 
 	public void setStallsAvailable(int purchase) {
-		stallsAvailable = stallsAvailable - purchase;
+		this.stallsAvailable = purchase;
 	}
-	
+
 }

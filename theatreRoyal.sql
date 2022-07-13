@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema theatrebooking
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `theatrebooking` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `theatrebooking` DEFAULT CHARACTER SET utf8mb4 ;
 -- -----------------------------------------------------
 -- Schema new_schema1
 -- -----------------------------------------------------
@@ -97,8 +97,6 @@ CREATE TABLE IF NOT EXISTS `theatrebooking`.`customer` (
   `addressLine2` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `postcode` VARCHAR(9) NULL,
-  `email` VARCHAR(45) NULL,
-  `phoneNumber` VARCHAR(45) NULL,
   `creditCard` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -143,7 +141,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `theatrebooking`.`concessionID` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `type` ENUM('Regular', 'Student', 'Under 16') NULL,
+  `type` ENUM('Regular', 'Student', 'Under 16', 'Other') NULL,
   `discount` DOUBLE NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;

@@ -2,7 +2,6 @@ package controller;
 
 import model.Basket;
 import model.Ticket;
-import model.User;
 import util.DBConnector;
 import util.InputReader;
 import util.InputValidator;
@@ -182,11 +181,12 @@ public class BackEndController {
 	}
 
 	public void newTicket() {
+
 		// create a new ticket
 		Ticket ticket = new Ticket();
 		//
 		// user selects seat Type
-		// 
+		//
 		System.out.println("Enter Seat type:");
 		System.out.println("1- Circle");
 		System.out.println("2- Stalls");
@@ -194,21 +194,13 @@ public class BackEndController {
 		switch (in.getNumber("")) {
 		case 1:
 			double circlePrice = db.circlePrice();
-			// set circle price in ticket
 			ticket.setPrice(circlePrice);
-			// print to test setprice method worked
-			// // DELETE LATER
-			System.out.println(circlePrice); 
 			seatType = "Circle";
 			ticket.setSeatType(seatType);
 			break;
 		case 2:
 			double stallsPrice = db.stallsPrice();
-			// set stall price in ticket
 			ticket.setPrice(stallsPrice);
-			// print to test setprice method worked
-			// DELETE LATER
-			System.out.println(stallsPrice); 
 			seatType = "Stalls";
 			ticket.setSeatType(seatType);
 			break;
@@ -251,10 +243,10 @@ public class BackEndController {
 		}
 
 		// set ticket info (showName, duration bla bla bla)
-		ticket.setShowName(???);
-		ticket.setDate(???);
-		ticket.setPerformanceID(???);
-		ticket.setStartTime(???);
+		ticket.setShowName(db.ticket.getShowName());
+		ticket.setDate(db.ticket.getDate());
+		ticket.setPerformanceID(db.ticket.getPerformanceID());
+		ticket.setStartTime(db.ticket.getStartTime());
 		// basket add ticket
 		basket.addTicket(ticket);
 
@@ -293,7 +285,7 @@ public class BackEndController {
 
 		switch (in.getNumber("")) {
 		case 1:
-			db.addUserInfo();
+			db.setCustomerInfo();
 			paymentMenu();
 			break;
 		case 2:
@@ -317,7 +309,8 @@ public class BackEndController {
 		} else {
 			// if (inputValidator.validateCreditCard(ccNo) = false)
 			System.out.println("The credit card number you entered was invalid.");
-			System.out.println("Please check that your credit card number is 16 characters long, and has no spaces or '-'.");
+			System.out.println(
+					"Please check that your credit card number is 16 characters long, and has no spaces or '-'.");
 			System.out.println("Please choose an option");
 			System.out.println(formatter());
 			System.out.println("1 - Try entering my credit card number again");
@@ -332,27 +325,35 @@ public class BackEndController {
 			}
 		}
 	}
-		
+
 	public void processPayment() {
 		//
 		//
-		
+
 		// add transaction ID to all tickets
-		int transactionId = // some db query to create an id that is next in sql column table
-		basket.setTransactionIdOfAll(transactionId);
+		// int transactionId = // some db query to create an id that is next in sql
+		// column table
+		// basket.setTransactionIdOfAll(transactionId);
 		// TO DO
 		// TO DO
 		// Add tickets to database
 		// add transaction to database
 		// add the customer to the database
 		// update the availability in the relative performance database
+		db.injectCustomerInfo();
+		db.insertTransactionID();
+		db.updateSeatAvailibilityCirlce();
+		// basket.setSeat();
+
 		String bt = basket.getFormattedBasketTotal();
 		System.out.println("Your tickets have been processed");
 		System.out.println("Your account has been charged " + bt);
 		// clear the basket
 		basket.clearBasket();
 		System.out.println("We look forward to seeing you soon. Thank you.");
+
 		mainMenu();
+
 	}
 
 	public void ClearBasket() {

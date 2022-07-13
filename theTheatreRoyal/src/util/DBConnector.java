@@ -11,6 +11,9 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 import controller.BackEndController;
+import model.Basket;
+import model.Performance;
+import model.Show;
 import model.Ticket;
 import model.User;
 
@@ -20,9 +23,11 @@ public class DBConnector {
 	private PreparedStatement myStmt;
 	private ResultSet myRs;
 	private InputReader in;
-	public User user;
-	private Ticket ticket;
-	String inputID = "";
+	private User user;
+	public Ticket ticket;
+	private Show show;
+	private Basket basket;
+	private Performance performance;
 
 	public DBConnector() {
 		conn = null;
@@ -31,6 +36,9 @@ public class DBConnector {
 		in = new InputReader();
 		user = new User();
 		ticket = new Ticket();
+		show = new Show();
+		basket = new Basket();
+		performance = new Performance();
 	}
 
 	public void connect() {
@@ -71,13 +79,13 @@ public class DBConnector {
 			System.out.println("			Performance no." + myRs.getString("performance.id"));
 			System.out.println("Name: " + myRs.getString("showProduction.showName"));
 			System.out.println("Description: " + myRs.getString("showProduction.showDescription"));
-			System.out.println("Date: " + myRs.getString("performance.showDate"));
+			System.out.println("Date: " + myRs.getDate("performance.showDate"));
 			System.out.println("Duration: " + myRs.getString("showProduction.duration") + " minutes");
 			System.out.println("Language: " + myRs.getString("showProduction.language"));
 			System.out.println("Genre: " + myRs.getString("showProduction.typeID"));
-			System.out.println("Stall Price: ï¿½" + myRs.getDouble("showProduction.stallPrice")
+			System.out.println("Stall Price: £" + myRs.getDouble("showProduction.stallPrice")
 					+ "	Stall Availibility: " + myRs.getInt("performance.totalAvailibilityStalls"));
-			System.out.println("Circle Price: ï¿½" + myRs.getDouble("showProduction.circlePrice")
+			System.out.println("Circle Price: £" + myRs.getDouble("showProduction.circlePrice")
 					+ "	Circle Availibility: " + myRs.getInt("performance.totalAvailibilityCircle"));
 			System.out.println(bec.formatter());
 
@@ -204,8 +212,28 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				printShowData(myRs);
-				// inputID = myRs.getString("performance.id");
-				// Ticket.setPerformanceID(inputID);
+
+				ticket.setShowName(myRs.getString("showProduction.showName"));
+				System.out.println(ticket.getShowName());
+
+				show.setDuration(myRs.getInt("showProduction.duration"));
+				System.out.println(show.getDuration());
+
+				// language and genre setter/getters need to be added to class if we want them
+				// displayed on ticket
+
+				ticket.setStartTime(myRs.getString("performance.showStartTime"));
+				System.out.println(ticket.getStartTime());
+
+				ticket.setDate(myRs.getString("performance.showDate"));
+				System.out.println(ticket.getDate());
+
+				performance.setCircleAvailable(myRs.getInt("performance.totalAvailibilityCircle"));
+				System.out.println(performance.getCircleAvailable());
+
+				performance.setStallsAvailable(myRs.getInt("performance.totalAvailibilityStalls"));
+				System.out.println(performance.getStallsAvailable());
+
 			}
 
 		} catch (SQLException e) {
@@ -231,10 +259,11 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				circlePrice = myRs.getDouble("showProduction.circlePrice");
+				show.setCirclePrice(circlePrice);
 
-				// System.out.println("Circle Price: ï¿½" +
-				// System.out.println(myRs.getDouble("showProduction.circlePrice"));
-				// System.out.println(circlePrice);
+				// Test to see circle price has stored from database
+				System.out.println(show.getCirclePrice());
+
 			}
 
 		} catch (SQLException e) {
@@ -263,8 +292,10 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				stallsPrice = myRs.getDouble("showProduction.stallPrice");
+				show.setStallsPrice(stallsPrice);
 
-				// System.out.println(stallsPrice);
+				// Test to see circle price has stored from database
+				System.out.println(show.getStallsPrice());
 			}
 
 		} catch (SQLException e) {
@@ -276,22 +307,23 @@ public class DBConnector {
 	}
 
 	// this method will be used at the end for payment
-	public void addUserInfo() {
+	public void setCustomerInfo() {
 		user.setFirstName(in.getText("Enter first name"));
 		user.setLastName(in.getText("Enter last name"));
 		user.setAddressLine1(in.getText("Enter first line of address"));
 		user.setAddressLine2(in.getText("Enter second line of address"));
 		user.setCity(in.getText("Enter city"));
 		user.setPostcode(in.getText("Enter postcode"));
-		user.setEmail(in.getText("Enter eamil"));
-		user.setPhoneNo(in.getText("Enter phone number"));
-		user.setCcNumber(in.getText("Enter credit card number"));
+
+	}
+
+	public void injectCustomerInfo() {
 
 		try {
 			// Prepare a statement
 			myStmt = conn.prepareStatement(
-					"INSERT INTO customer (firstName, lastName, addressLine1, addressLine2, city, postcode, email, phoneNumber, creditCard) "
-							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+					"INSERT INTO customer (firstName, lastName, addressLine1, addressLine2, city, postcode) "
+							+ "VALUES (?, ?, ?, ?, ?, ?);");
 
 			// Set the parameters
 			myStmt.setString(1, user.getFirstName());
@@ -300,9 +332,6 @@ public class DBConnector {
 			myStmt.setString(4, user.getAddressLine2());
 			myStmt.setString(5, user.getCity());
 			myStmt.setString(6, user.getPostcode());
-			myStmt.setString(7, user.getEmail());
-			myStmt.setString(8, user.getPhoneNo());
-			myStmt.setString(9, user.getCcNumber());
 
 			// Execute SQL query
 			myStmt.executeUpdate();
@@ -314,6 +343,7 @@ public class DBConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	public void insertTransactionID() {
@@ -334,6 +364,105 @@ public class DBConnector {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void updateSeatAvailibility() {
+
+		for (int i = 0; i < basket.getNoOfTotalTickets(); i++) {
+			String performanceID = null;
+			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
+				performanceID = basket.tickets.get(i).getPerformanceID();
+				try {
+					// Prepare a statement
+					String sqlInsert = ("UPDATE performance SET totalAvailibilityCircle = totalAvailibilityCircle - 1 WHERE performance.id = ?;");
+					myStmt = conn.prepareStatement(sqlInsert);
+
+					// Set the parameters
+					myStmt.setString(1, performanceID);
+
+					// Execute SQL query
+					myStmt.executeUpdate();
+
+					System.out.println("Insert complete..");
+					// System.out.println(seatType);
+					// System.out.println(performanceID);
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else if (basket.tickets.get(i).getSeatType().equals("Stalls")) {
+				performanceID = basket.tickets.get(i).getPerformanceID();
+				try {
+					// Prepare a statement
+					String sqlInsert = ("UPDATE performance SET totalAvailibilityStalls = totalAvailibilityStalls - 1 WHERE performance.id = ?;");
+					myStmt = conn.prepareStatement(sqlInsert);
+
+					// Set the parameters
+					myStmt.setString(1, performanceID);
+
+					// Execute SQL query
+					myStmt.executeUpdate();
+
+					System.out.println("Insert complete..");
+					// System.out.println(seatType);
+					// System.out.println(performanceID);
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			// performanceID = basket.tickets.get(i).getPerformanceID();
+
+		}
+	}
+
+	public void updateSeatAvailibilityCirlce() {
+
+		String performanceID = ticket.getPerformanceID();
+
+		try {
+			// Prepare a statement
+			String sqlInsert = ("UPDATE performance SET totalAvailibilityCircle = totalAvailibilityCircle - 1 WHERE performance.id = ?;");
+			myStmt = conn.prepareStatement(sqlInsert);
+
+			// Set the parameters
+			myStmt.setString(1, performanceID);
+
+			// Execute SQL query
+			myStmt.executeUpdate();
+
+			System.out.println("Insert complete..");
+			// System.out.println(seatType);
+			// System.out.println(performanceID);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void updateSeatAvailibilityStalls() {
+
+		String performanceID = ticket.getPerformanceID();
+		try {
+			// Prepare a statement
+			String sqlInsert = ("UPDATE performance SET totalAvailibilityStalls = totalAvailibilityStalls - 1 WHERE performance.id = ?;");
+			myStmt = conn.prepareStatement(sqlInsert);
+
+			// Set the parameters
+			myStmt.setString(1, performanceID);
+
+			// Execute SQL query
+			myStmt.executeUpdate();
+
+			System.out.println("Insert complete..");
+			// System.out.println(seatType);
+			// System.out.println(performanceID);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

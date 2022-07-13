@@ -12,18 +12,17 @@ public class Show {
 	private double stallsPrice;
 	private double circlePrice;
 	private ArrayList<Performer> performers;
-	
-	public Show(int productionID, String showName, String showType, String showDescription, int duration,
-			boolean liveAccompaniment, double stallsPrice, double circlePrice) {
+
+	public Show() {
 		super();
-		this.productionID = productionID;
-		this.showName = showName;
-		this.showType = showType;
-		this.showDescription = showDescription;
-		this.duration = duration;
-		this.liveAccompaniment = liveAccompaniment;
-		this.stallsPrice = stallsPrice;
-		this.circlePrice = circlePrice;
+		this.productionID = 0;
+		this.showName = null;
+		this.showType = null;
+		this.showDescription = null;
+		this.duration = 0;
+		this.liveAccompaniment = false;
+		this.stallsPrice = 0;
+		this.circlePrice = 0;
 		performers = new ArrayList<Performer>();
 	}
 
@@ -90,21 +89,21 @@ public class Show {
 	public void setCirclePrice(double circlePrice) {
 		this.circlePrice = circlePrice;
 	}
-	
+
 	/**
-	 * methods for ArrayList performers
-	 * getAllPerformers, addPerformer, getMusicPerformers, getRegularPerformers
+	 * methods for ArrayList performers getAllPerformers, addPerformer,
+	 * getMusicPerformers, getRegularPerformers
 	 * 
 	 */
-	
+
 	public ArrayList<Performer> getAllPerformers() {
 		return performers;
 	}
-	
+
 	public void addPerformer(Performer performer) {
 		performers.add(performer);
 	}
-	
+
 	public ArrayList<Performer> getMusicPerformers() {
 		ArrayList<Performer> musicPerformers = new ArrayList<Performer>();
 		for (int i = 0; i < performers.size(); i++) {
@@ -112,10 +111,10 @@ public class Show {
 				musicPerformers.add(performers.get(i));
 			}
 		}
-		
+
 		return musicPerformers;
 	}
-	
+
 	public ArrayList<Performer> getRegularPerformers() {
 		ArrayList<Performer> regularPerformers = new ArrayList<Performer>();
 		for (int i = 0; i < performers.size(); i++) {
@@ -123,10 +122,8 @@ public class Show {
 				regularPerformers.add(performers.get(i));
 			}
 		}
-		
+
 		return regularPerformers;
 	}
-	
-	
-	
+
 }
