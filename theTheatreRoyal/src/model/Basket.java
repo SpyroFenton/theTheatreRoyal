@@ -1,13 +1,13 @@
 package model;
 
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
 import util.StringFormatter;
-import util.TimeStamp;
 
 public class Basket {
 
@@ -15,7 +15,7 @@ public class Basket {
     private Double basketTotal;
     private boolean postage;
     private StringFormatter sf;
-    private SimpleDateFormat sdf;
+    private DateTimeFormatter dtf;
     
     public Basket() {
         tickets = new ArrayList<>();
@@ -23,7 +23,6 @@ public class Basket {
         postage = false;
         
         sf = new StringFormatter();
-        sdf = new SimpleDateFormat("yyyy-MM-dd");
         
     }
     
@@ -44,17 +43,35 @@ public class Basket {
     	// get local date as String
     	String localDate = LocalDate.now().toString();
     	// get localDate formatted as Date
-    	Date currentDate = sdf.parse(localDate);
+    	SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");	
+    	Date currentDate = null;
+		try {
+			currentDate = formatter.parse(localDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
+		
     	for (int i = 0; i < tickets.size(); i++) {
     		String tDate = tickets.get(i).getDate();
-    		Date ticketDate = sdf.parse(tDate);
-    		if (ticketDate.compareTo(currentDate)<=6) {
+    		Date ticketDate = null;
+			try {
+				ticketDate = formatter.parse(tDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		if (ticketDate.compareTo(currentDate) <= 6) {
     			return false;
     		}
     	}
-    	
+    	// if for loop doesn't return false
+    	// all dates are valid for postage
+    	return true; 	
     }
+    
+    
     /**
      * Basket methods
      */
