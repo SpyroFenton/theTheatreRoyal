@@ -6,9 +6,12 @@ public class FrontEndController {
 
 	public static void main(String[] args) {
 
-		BackEndController bec = new BackEndController();
+		db.user.setFirstName("Jin");
+		db.user.getFirstName();
+		
+		//BackEndController bec = new BackEndController();
 
-		bec.mainMenu();
+		 //bec.mainMenu();
 
 	}
 

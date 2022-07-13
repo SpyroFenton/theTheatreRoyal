@@ -2,6 +2,7 @@ package controller;
 
 import model.Basket;
 import model.Ticket;
+import model.User;
 import util.DBConnector;
 import util.InputReader;
 import util.InputValidator;
@@ -254,11 +255,11 @@ public class BackEndController {
 		ticket.setDate(???);
 		ticket.setPerformanceID(???);
 		ticket.setStartTime(???);
+		// basket add ticket
 		basket.addTicket(ticket);
 
 		System.out.println("Your ticket has been added to your basket.");
 		System.out.println("Would you like to add another ticket?");
-		System.out.println("Enter Seat type:");
 		System.out.println("1- Add another ticket");
 		System.out.println("2- View Basket");
 		System.out.println("3- Back to main menu");
@@ -292,6 +293,7 @@ public class BackEndController {
 
 		switch (in.getNumber("")) {
 		case 1:
+			db.addUserInfo();
 			paymentMenu();
 			break;
 		case 2:
@@ -310,6 +312,7 @@ public class BackEndController {
 		String ccNo = in.getText("");
 		if (inputValidator.validateCreditCard(ccNo)) {
 			System.out.println("Details are correct. Processing your order now.");
+			// go to process payment
 			processPayment();
 		} else {
 			// if (inputValidator.validateCreditCard(ccNo) = false)
@@ -335,19 +338,14 @@ public class BackEndController {
 		//
 		
 		// add transaction ID to all tickets
-		int id = // some db query to create an id that is next in sql column table
-		for (int i = 0; i < basket.getNoOfTotalTickets(); i++) {
-			basket.setTransactionIdOfAll(id);
-		}
-		
+		int transactionId = // some db query to create an id that is next in sql column table
+		basket.setTransactionIdOfAll(transactionId);
 		// TO DO
 		// TO DO
 		// Add tickets to database
 		// add transaction to database
 		// add the customer to the database
 		// update the availability in the relative performance database
-		
-		
 		String bt = basket.getFormattedBasketTotal();
 		System.out.println("Your tickets have been processed");
 		System.out.println("Your account has been charged " + bt);

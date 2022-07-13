@@ -20,7 +20,7 @@ public class DBConnector {
 	private PreparedStatement myStmt;
 	private ResultSet myRs;
 	private InputReader in;
-	private User user;
+	public User user;
 	private Ticket ticket;
 	String inputID = "";
 
@@ -75,9 +75,9 @@ public class DBConnector {
 			System.out.println("Duration: " + myRs.getString("showProduction.duration") + " minutes");
 			System.out.println("Language: " + myRs.getString("showProduction.language"));
 			System.out.println("Genre: " + myRs.getString("showProduction.typeID"));
-			System.out.println("Stall Price: £" + myRs.getDouble("showProduction.stallPrice")
+			System.out.println("Stall Price: ï¿½" + myRs.getDouble("showProduction.stallPrice")
 					+ "	Stall Availibility: " + myRs.getInt("performance.totalAvailibilityStalls"));
-			System.out.println("Circle Price: £" + myRs.getDouble("showProduction.circlePrice")
+			System.out.println("Circle Price: ï¿½" + myRs.getDouble("showProduction.circlePrice")
 					+ "	Circle Availibility: " + myRs.getInt("performance.totalAvailibilityCircle"));
 			System.out.println(bec.formatter());
 
@@ -232,7 +232,7 @@ public class DBConnector {
 			while (myRs.next()) {
 				circlePrice = myRs.getDouble("showProduction.circlePrice");
 
-				// System.out.println("Circle Price: £" +
+				// System.out.println("Circle Price: ï¿½" +
 				// System.out.println(myRs.getDouble("showProduction.circlePrice"));
 				// System.out.println(circlePrice);
 			}
