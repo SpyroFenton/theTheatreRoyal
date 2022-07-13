@@ -333,16 +333,26 @@ public class BackEndController {
 	public void processPayment() {
 		//
 		//
-		// Add tickets to database
-		// add the customer to the database
-		// add transaction id table to the database
-		// update the availability in the relative performance database
-		String bt = basket.getFormattedBasketTotal();
 		
-		//
-		//
+		// add transaction ID to all tickets
+		int id = // some db query to create an id that is next in sql column table
+		for (int i = 0; i < basket.getNoOfTotalTickets(); i++) {
+			basket.setTransactionIdOfAll(id);
+		}
+		
+		// TO DO
+		// TO DO
+		// Add tickets to database
+		// add transaction to database
+		// add the customer to the database
+		// update the availability in the relative performance database
+		
+		
+		String bt = basket.getFormattedBasketTotal();
 		System.out.println("Your tickets have been processed");
 		System.out.println("Your account has been charged " + bt);
+		// clear the basket
+		basket.clearBasket();
 		System.out.println("We look forward to seeing you soon. Thank you.");
 		mainMenu();
 	}

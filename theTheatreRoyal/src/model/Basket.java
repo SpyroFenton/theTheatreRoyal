@@ -1,8 +1,10 @@
 package model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import util.StringFormatter;
+import util.TimeStamp;
 
 public class Basket {
 
@@ -116,6 +118,13 @@ public class Basket {
     	System.out.println("All tickets have been printed and stored to your Transaction ID which can be found on your ticket.");
     	System.out.println("Thank you and we look forward to seeing you!");
     	clearBasket();
+    }
+    
+    // set transactionID of all tickets
+    public void setTransactionIdOfAll(int id) {
+    	for (int i = 0; i < tickets.size(); i++) {
+    		tickets.get(i).setTransactionID(id);
+    	}
     }
     
     public void displayBasket() {
