@@ -24,6 +24,7 @@ public class StringFormatter {
 	}
 	
 	// returns a string to say that the show has live music.
+	// not currently implemented
 	public void formatMusicShow(boolean hasMusic) {
 		if (hasMusic = true) {
 			System.out.println("with live music accompaniment.");

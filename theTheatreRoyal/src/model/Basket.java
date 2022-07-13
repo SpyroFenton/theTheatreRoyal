@@ -1,7 +1,10 @@
 package model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import util.StringFormatter;
 import util.TimeStamp;
@@ -12,6 +15,7 @@ public class Basket {
     private Double basketTotal;
     private boolean postage;
     private StringFormatter sf;
+    private SimpleDateFormat sdf;
     
     public Basket() {
         tickets = new ArrayList<>();
@@ -19,8 +23,11 @@ public class Basket {
         postage = false;
         
         sf = new StringFormatter();
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
         
     }
+    
+    // postage options
     
     public void applyPostage() {
     	postage = true;
@@ -33,6 +40,21 @@ public class Basket {
     	return postage;
     }
     
+    public boolean checkPostageApplies() {
+    	// get local date as String
+    	String localDate = LocalDate.now().toString();
+    	// get localDate formatted as Date
+    	Date currentDate = sdf.parse(localDate);
+    	
+    	for (int i = 0; i < tickets.size(); i++) {
+    		String tDate = tickets.get(i).getDate();
+    		Date ticketDate = sdf.parse(tDate);
+    		if (ticketDate.compareTo(currentDate)<=6) {
+    			return false;
+    		}
+    	}
+    	
+    }
     /**
      * Basket methods
      */
@@ -142,5 +164,25 @@ public class Basket {
     	}
     	double bt = getBasketTotal();
     	System.out.println("\nThe total of your basket is: " + sf.formatPrice(bt) + "\n");
+    }
+    
+    public int getCircleAmount() {
+    	int circleAmount = 0;
+    	for (int i = 0; i < tickets.size(); i++) {
+    		if (tickets.get(i).getSeatType() == "Circle") {
+    			circleAmount++;
+    		}
+    	}
+    	return circleAmount;
+    }
+    
+    public int getStallAmount() {
+    	int stallsAmount = 0;
+    	for (int i = 0; i < tickets.size(); i++) {
+    		if (tickets.get(i).getSeatType() == "Stalls") {
+    			stallsAmount++;
+    		}
+    	}
+    	return stallsAmount;
     }
 }
