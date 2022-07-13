@@ -368,7 +368,7 @@ public class DBConnector {
 
 	public void updateSeatAvailibility() {
 
-		for (int i = 0; i < basket.getNoOfTotalTickets(); i++) {
+		for (int i = 0; i < basket.tickets.size(); i++) {
 			String performanceID = null;
 			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
 				performanceID = basket.tickets.get(i).getPerformanceID();
@@ -383,7 +383,7 @@ public class DBConnector {
 					// Execute SQL query
 					myStmt.executeUpdate();
 
-					System.out.println("Insert complete..");
+					System.out.println("Insert complete...");
 					// System.out.println(seatType);
 					// System.out.println(performanceID);
 
@@ -416,9 +416,9 @@ public class DBConnector {
 		}
 	}
 
-	public void updateSeatAvailibilityCirlce() {
+	public void updateSeatAvailibilityCirlce(String performanceID) {
 
-		String performanceID = ticket.getPerformanceID();
+		// String performanceID = ticket.getPerformanceID();
 
 		try {
 			// Prepare a statement
@@ -441,9 +441,9 @@ public class DBConnector {
 
 	}
 
-	public void updateSeatAvailibilityStalls() {
+	public void updateSeatAvailibilityStalls(String performanceID) {
 
-		String performanceID = ticket.getPerformanceID();
+		// String performanceID = ticket.getPerformanceID();
 		try {
 			// Prepare a statement
 			String sqlInsert = ("UPDATE performance SET totalAvailibilityStalls = totalAvailibilityStalls - 1 WHERE performance.id = ?;");

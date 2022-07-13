@@ -197,12 +197,14 @@ public class BackEndController {
 			ticket.setPrice(circlePrice);
 			seatType = "Circle";
 			ticket.setSeatType(seatType);
+			// db.updateSeatAvailibilityCirlce();
 			break;
 		case 2:
 			double stallsPrice = db.stallsPrice();
 			ticket.setPrice(stallsPrice);
 			seatType = "Stalls";
 			ticket.setSeatType(seatType);
+			// db.updateSeatAvailibilityStalls();
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
@@ -342,8 +344,16 @@ public class BackEndController {
 		// update the availability in the relative performance database
 		db.injectCustomerInfo();
 		db.insertTransactionID();
-		db.updateSeatAvailibilityCirlce();
+		db.updateSeatAvailibility();
 		// basket.setSeat();
+		for (int i = 0; i < basket.tickets.size(); i++) {
+			String performanceId = basket.tickets.get(i).getPerformanceID();
+			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
+				db.updateSeatAvailibilityCirlce(performanceId);
+			} else if (basket.tickets.get(i).getSeatType().equals("Stalls")) {
+				db.updateSeatAvailibilityStalls(performanceId);
+			}
+		}
 
 		String bt = basket.getFormattedBasketTotal();
 		System.out.println("Your tickets have been processed");
