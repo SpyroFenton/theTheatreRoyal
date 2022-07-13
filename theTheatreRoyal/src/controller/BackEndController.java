@@ -344,8 +344,7 @@ public class BackEndController {
 		// update the availability in the relative performance database
 		db.injectCustomerInfo();
 		db.insertTransactionID();
-		db.updateSeatAvailibility();
-		// basket.setSeat();
+
 		for (int i = 0; i < basket.tickets.size(); i++) {
 			String performanceId = basket.tickets.get(i).getPerformanceID();
 			if (basket.tickets.get(i).getSeatType().equals("Circle")) {

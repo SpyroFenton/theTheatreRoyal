@@ -45,7 +45,6 @@ INSERT INTO showProduction (showName, showDescription, duration, language, typeI
 
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Adele', 'Latest hits from the album 104', '120', 'English', 'Concert', '1', '20.00', '30.00');
 
-
 -- -----------------------------------------------------
 -- Table `theatrebooking`.`performance`
 -- -----------------------------------------------------
@@ -108,32 +107,58 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `theatrebooking`.`musicPerformer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `performanceID` INT NULL,
+  `showProductionID` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `performanceID_idx` (`performanceID` ASC) VISIBLE,
-  CONSTRAINT `performance1ID`
-    FOREIGN KEY (`performanceID`)
-    REFERENCES `theatrebooking`.`performance` (`id`)
+  INDEX `showProduction1_idx` (`showProductionID` ASC) VISIBLE,
+  CONSTRAINT `showProductionID3`
+    FOREIGN KEY (`showProductionID`)
+    REFERENCES `theatrebooking`.`showProduction` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('Freddie Mercury', '1');
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('Brian May', '1');
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('John Deacon', '1');
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('Roger Taylor', '1');
+
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('Wolfgang Amadeus Mozart', '2');
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('Julia Steiner', '2');
+
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('New York Philharmonic Orchestra', '3');
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('Esa Pekka Salonen', '3');
+
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('James Gall', '5');
+INSERT INTO musicPerformer (name, showProductionID) VALUES ('Ed Sheeran', '5');
+
 
 -- -----------------------------------------------------
--- Table `theatrebooking`.`performerRegular`
+-- Table `theatrebooking`.`regularPerformer`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `theatrebooking`.`performerRegular` (
+CREATE TABLE IF NOT EXISTS `theatrebooking`.`regularPerformer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `performanceID` INT NULL,
+  `showProductionID` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `performanceID_idx` (`performanceID` ASC) VISIBLE,
-  CONSTRAINT `performance2ID`
-    FOREIGN KEY (`performanceID`)
-    REFERENCES `theatrebooking`.`performance` (`id`)
+  INDEX `performance2ID_idx` (`showProductionID` ASC) VISIBLE,
+  CONSTRAINT `showProductionID2`
+    FOREIGN KEY (`showProductionID`)
+    REFERENCES `theatrebooking`.`showProduction` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Ryan Gosling', '3');
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Emma Stone', '3');
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Harry Styles', '3');
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Vanessa Hudgens', '3');
+
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Danny DeVito', '4');
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Benedict Cumberbatch', '4');
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Emma Thompson', '4');
+
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Joanna Lum', '5');
+INSERT INTO regularPerformer (name, showProductionID) VALUES ('Dara OBrian', '5');
 
 
 -- -----------------------------------------------------

@@ -214,25 +214,25 @@ public class DBConnector {
 				printShowData(myRs);
 
 				ticket.setShowName(myRs.getString("showProduction.showName"));
-				System.out.println(ticket.getShowName());
+				// System.out.println(ticket.getShowName());
 
 				show.setDuration(myRs.getInt("showProduction.duration"));
-				System.out.println(show.getDuration());
+				// System.out.println(show.getDuration());
 
 				// language and genre setter/getters need to be added to class if we want them
 				// displayed on ticket
 
 				ticket.setStartTime(myRs.getString("performance.showStartTime"));
-				System.out.println(ticket.getStartTime());
+				// System.out.println(ticket.getStartTime());
 
 				ticket.setDate(myRs.getString("performance.showDate"));
-				System.out.println(ticket.getDate());
+				// System.out.println(ticket.getDate());
 
 				performance.setCircleAvailable(myRs.getInt("performance.totalAvailibilityCircle"));
-				System.out.println(performance.getCircleAvailable());
+				// System.out.println(performance.getCircleAvailable());
 
 				performance.setStallsAvailable(myRs.getInt("performance.totalAvailibilityStalls"));
-				System.out.println(performance.getStallsAvailable());
+				// System.out.println(performance.getStallsAvailable());
 
 			}
 
@@ -262,7 +262,7 @@ public class DBConnector {
 				show.setCirclePrice(circlePrice);
 
 				// Test to see circle price has stored from database
-				System.out.println(show.getCirclePrice());
+				// System.out.println(show.getCirclePrice());
 
 			}
 
@@ -366,55 +366,55 @@ public class DBConnector {
 		}
 	}
 
-	public void updateSeatAvailibility() {
-
-		for (int i = 0; i < basket.tickets.size(); i++) {
-			String performanceID = null;
-			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
-				performanceID = basket.tickets.get(i).getPerformanceID();
-				try {
-					// Prepare a statement
-					String sqlInsert = ("UPDATE performance SET totalAvailibilityCircle = totalAvailibilityCircle - 1 WHERE performance.id = ?;");
-					myStmt = conn.prepareStatement(sqlInsert);
-
-					// Set the parameters
-					myStmt.setString(1, performanceID);
-
-					// Execute SQL query
-					myStmt.executeUpdate();
-
-					System.out.println("Insert complete...");
-					// System.out.println(seatType);
-					// System.out.println(performanceID);
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else if (basket.tickets.get(i).getSeatType().equals("Stalls")) {
-				performanceID = basket.tickets.get(i).getPerformanceID();
-				try {
-					// Prepare a statement
-					String sqlInsert = ("UPDATE performance SET totalAvailibilityStalls = totalAvailibilityStalls - 1 WHERE performance.id = ?;");
-					myStmt = conn.prepareStatement(sqlInsert);
-
-					// Set the parameters
-					myStmt.setString(1, performanceID);
-
-					// Execute SQL query
-					myStmt.executeUpdate();
-
-					System.out.println("Insert complete..");
-					// System.out.println(seatType);
-					// System.out.println(performanceID);
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			// performanceID = basket.tickets.get(i).getPerformanceID();
-
-		}
-	}
+//	public void updateSeatAvailibility() {
+//
+//		for (int i = 0; i < basket.tickets.size(); i++) {
+//			String performanceID = null;
+//			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
+//				performanceID = basket.tickets.get(i).getPerformanceID();
+//				try {
+//					// Prepare a statement
+//					String sqlInsert = ("UPDATE performance SET totalAvailibilityCircle = totalAvailibilityCircle - 1 WHERE performance.id = ?;");
+//					myStmt = conn.prepareStatement(sqlInsert);
+//
+//					// Set the parameters
+//					myStmt.setString(1, performanceID);
+//
+//					// Execute SQL query
+//					myStmt.executeUpdate();
+//
+//					System.out.println("Insert complete...");
+//					// System.out.println(seatType);
+//					// System.out.println(performanceID);
+//
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			} else if (basket.tickets.get(i).getSeatType().equals("Stalls")) {
+//				performanceID = basket.tickets.get(i).getPerformanceID();
+//				try {
+//					// Prepare a statement
+//					String sqlInsert = ("UPDATE performance SET totalAvailibilityStalls = totalAvailibilityStalls - 1 WHERE performance.id = ?;");
+//					myStmt = conn.prepareStatement(sqlInsert);
+//
+//					// Set the parameters
+//					myStmt.setString(1, performanceID);
+//
+//					// Execute SQL query
+//					myStmt.executeUpdate();
+//
+//					System.out.println("Insert complete..");
+//					// System.out.println(seatType);
+//					// System.out.println(performanceID);
+//
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			// performanceID = basket.tickets.get(i).getPerformanceID();
+//
+//		}
+//	}
 
 	public void updateSeatAvailibilityCirlce(String performanceID) {
 
