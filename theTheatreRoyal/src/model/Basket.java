@@ -81,6 +81,12 @@ public class Basket {
     	}
 	}
     
+    public String getFormattedBasketTotal() {
+    	double bt = getBasketTotal();
+    	String total = sf.formatPrice(bt);
+    	return total;
+    }
+    
     /**
      * 
      * Ticket methods.

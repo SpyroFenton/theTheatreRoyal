@@ -181,10 +181,11 @@ public class BackEndController {
 	}
 
 	public void newTicket() {
+		// create a new ticket
+		Ticket ticket = new Ticket();
+		//
 		// user selects seat Type
-		//
-		// CREATE Instance of ticket i.e. Ticket ticket = new Ticket();
-		//
+		// 
 		System.out.println("Enter Seat type:");
 		System.out.println("1- Circle");
 		System.out.println("2- Stalls");
@@ -194,28 +195,33 @@ public class BackEndController {
 			double circlePrice = db.circlePrice();
 			// set circle price in ticket
 			ticket.setPrice(circlePrice);
-			System.out.println(circlePrice); // print to test setprice method worked
+			// print to test setprice method worked
+			// // DELETE LATER
+			System.out.println(circlePrice); 
 			seatType = "Circle";
-
+			ticket.setSeatType(seatType);
 			break;
 		case 2:
 			double stallsPrice = db.stallsPrice();
 			// set stall price in ticket
 			ticket.setPrice(stallsPrice);
-			System.out.println(stallsPrice); // print to test setprice method worked
+			// print to test setprice method worked
+			// DELETE LATER
+			System.out.println(stallsPrice); 
 			seatType = "Stalls";
-
+			ticket.setSeatType(seatType);
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
 		}
-
+		//
 		// user select concession options
-
+		//
 		System.out.println("Enter Concession type:");
 		System.out.println("1- Regular (no concession)");
 		System.out.println("2- Student");
 		System.out.println("3- Under 16");
+		System.out.println("4- Other");
 		String concession = "";
 		switch (in.getNumber("")) {
 		case 1:
@@ -225,44 +231,51 @@ public class BackEndController {
 		case 2:
 			concession = "Student";
 			ticket.setConcession(concession);
-			// ticket.applyConcession;
+			ticket.applyConcession();
 			break;
 		case 3:
 			// set stall price in ticket
 			concession = "Under 16";
 			ticket.setConcession(concession);
-			// ticket.applyConcession
+			ticket.applyConcession();
+			break;
+		case 4:
+			// set stall price in ticket
+			concession = "Other";
+			ticket.setConcession(concession);
+			ticket.applyConcession();
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
 		}
 
 		// set ticket info (showName, duration bla bla bla)
-		// basket.addTicket(ticket)
+		ticket.setShowName(???);
+		ticket.setDate(???);
+		ticket.setPerformanceID(???);
+		ticket.setStartTime(???);
+		basket.addTicket(ticket);
 
-		// select an option
-		// get out of menu
-		// view basket
-
-	}
-
-	public void seatSelector() {
+		System.out.println("Your ticket has been added to your basket.");
+		System.out.println("Would you like to add another ticket?");
 		System.out.println("Enter Seat type:");
-		System.out.println("1- Circle");
-		System.out.println("2- Stall");
-
+		System.out.println("1- Add another ticket");
+		System.out.println("2- View Basket");
+		System.out.println("3- Back to main menu");
 		switch (in.getNumber("")) {
 		case 1:
-			// set circle price in ticket
-
+			newTicket();
 			break;
 		case 2:
-			// set stall price in ticket
-
+			viewBasket();
+			break;
+		case 3:
+			mainMenu();
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
 		}
+
 	}
 
 	public void viewBasket() {
@@ -294,25 +307,17 @@ public class BackEndController {
 
 	public void paymentMenu() {
 		System.out.println("In order to confirm your payment please enter your Credit Card number");
-		String cc = in.getText("");
-		@SuppressWarnings("unused") // boolean valid is not current used
-
-		// OVERRIDE VALIDATE METHOD FOR NOW
-		// TO DO
-		//
-		//
-		//
-
-		//
-		//
-		// boolean valid = inputValidator.validateCreditCard(cc);
-		boolean valid = true;
-		if (valid = true) {
+		String ccNo = in.getText("");
+		if (inputValidator.validateCreditCard(ccNo)) {
 			System.out.println("Details are correct. Processing your order now.");
-		} else if (valid = false) {
+			processPayment();
+		} else {
+			// if (inputValidator.validateCreditCard(ccNo) = false)
+			System.out.println("The credit card number you entered was invalid.");
+			System.out.println("Please check that your credit card number is 16 characters long, and has no spaces or '-'.");
 			System.out.println("Please choose an option");
 			System.out.println(formatter());
-			System.out.println("1 - Try again");
+			System.out.println("1 - Try entering my credit card number again");
 			System.out.println("2 - Back to basket");
 			switch (in.getNumber("")) {
 			case 1:
@@ -323,16 +328,22 @@ public class BackEndController {
 				break;
 			}
 		}
+	}
+		
+	public void processPayment() {
 		//
 		//
 		// Add tickets to database
 		// add the customer to the database
 		// add transaction id table to the database
 		// update the availability in the relative performance database
+		String bt = basket.getFormattedBasketTotal();
+		
 		//
 		//
-		//
-		System.out.println("Your tickets have been processed. We look forward to seeing you soon. Thank you.");
+		System.out.println("Your tickets have been processed");
+		System.out.println("Your account has been charged " + bt);
+		System.out.println("We look forward to seeing you soon. Thank you.");
 		mainMenu();
 	}
 

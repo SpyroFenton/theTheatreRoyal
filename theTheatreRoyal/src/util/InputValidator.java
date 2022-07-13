@@ -8,8 +8,6 @@ public class InputValidator {
 	
 	public Boolean validateCreditCard(String ccNo) {
 		if (ccNo.length() != 16) {
-			System.out.println("Your Credit Card number must be 16 characters long.");
-			System.out.println("Please check for any spaces or '-' that you have entered.");
 			return false;
 		} else {
 			// luhn algorithm
@@ -38,14 +36,9 @@ public class InputValidator {
 				return true;
 			}
 			else
-			System.out.println("Credit card number is invalid");
 			{
 				return false;
 			}
 		}
 	}
-	
-	
-	
-	
 }

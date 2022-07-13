@@ -114,8 +114,7 @@ public class Ticket {
 
 	// applies the concession from the Concessions enum class
 	// type of concession in a String must be entered
-	public void applyConcession(String concession) {
-		this.concession = concession;
+	public void applyConcession() {
 		price = price * Concessions.Discounted.concessionApplied;
 	}
 
