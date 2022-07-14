@@ -26,7 +26,9 @@ public class BackEndController {
 
 	public void mainMenu() {
 
-		System.out.println("Welcome please type a number to choose an option");
+		System.out.println("Welcome to the Theatre Royal");
+		System.out.println();
+		System.out.println("Please type a number to choose an option");
 		System.out.println();
 		System.out.println(formatter());
 		System.out.println("1 - View What's On/Calendar");
