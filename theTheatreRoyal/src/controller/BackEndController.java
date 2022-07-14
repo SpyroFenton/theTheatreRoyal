@@ -288,7 +288,7 @@ public class BackEndController {
 		switch (in.getNumber("")) {
 		case 1:
 			db.setCustomerInfo();
-			paymentMenu();
+			postage();
 			break;
 		case 2:
 			ClearBasket();
@@ -298,6 +298,31 @@ public class BackEndController {
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
+		}
+	}
+	
+	public void postage() {
+		if (basket.checkPostageApplies()) {
+			System.out.println("Would you like to apply postage to your order?");
+			System.out.println("Postage costs £1 per ticket. "
+					+ "If your order contains a concession ticket, postage will be £1 for the entire order."
+					+ " If all your tickets are a concession ticket, postage will be free");
+			System.out.println("1- Yes, I'd like to apply postage");
+			System.out.println("2- No, I do not want postage");
+			switch (in.getNumber("")) {
+			case 1:
+				basket.applyPostage();
+				System.out.println("Your new basket total is " + basket.getBasketTotal());
+				System.out.print("Proceeding to payment.");
+				paymentMenu();
+				break;
+			case 2:
+				System.out.println("Okay. On confirmation of your order you will be able to collect your tickets at our box office.");
+				paymentMenu();
+				break;
+			}
+		} else {
+			paymentMenu();
 		}
 	}
 
