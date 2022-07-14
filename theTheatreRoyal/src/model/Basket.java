@@ -103,7 +103,8 @@ public class Basket {
 			// find which tickets have postage applied and store that in a variable
 			int n = 0;
 			for (int i = 0; i < tickets.size(); i++) {
-				if (tickets.get(i).getConcession() != null) {
+				if (tickets.get(i).getConcession().equals("Regular") ) {
+				} else {
 					n = n + 1;
 				}
 			}
