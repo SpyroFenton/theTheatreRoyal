@@ -1,41 +1,43 @@
 package util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class InputReader {
-    private Scanner scanner = new Scanner(System.in);
-
-    public InputReader(){
-
-
+private Scanner scanner;
+    
+    /**
+     * Constructor for objects of class InputReader
+     */
+    public InputReader()
+    {
+        scanner = new Scanner(System.in); // read from the keyboard
     }
-    //returns a string input 
-
-    public String getInputString(){
-
-      String input = scanner.nextLine();
-
-      return input;
-
+    
+    public InputReader(String fileName) throws FileNotFoundException{
+        File dataInput = new File(fileName);
+        scanner = new Scanner(dataInput);
     }
-
-    //checks to see if it is a integer thats been passed then returns the input
-
-    public int getInputInt(){
- 
-      while (!scanner.hasNextInt())
-
-      {
-
-        scanner.next();
-
-        System.out.print("Please choose a valid num (Integers only): ");
-
-      }
-
-       int input = scanner.nextInt();
-
-       return input;
-
-    }  
+    
+    public Scanner getScanner() {
+        return scanner;
+    }
+    
+    public int getNumber(String prompt) {
+        System.out.println(prompt);
+        int n = scanner.nextInt(); // use the scanner to get the next integer from the input
+        scanner.nextLine(); // fix new line character is left unread
+        return n;
+    }
+    
+    public String getText(String prompt) {
+        System.out.println(prompt);
+        String value = scanner.nextLine();
+        return value;
+    }
+    
+    public void close() {
+        scanner.close();
+    }
 }
