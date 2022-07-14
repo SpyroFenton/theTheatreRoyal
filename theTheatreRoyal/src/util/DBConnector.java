@@ -79,6 +79,9 @@ public class DBConnector {
 			System.out.println("			Performance no." + myRs.getString("performance.id"));
 			System.out.println("Name: " + myRs.getString("showProduction.showName"));
 			System.out.println("Description: " + myRs.getString("showProduction.showDescription"));
+			if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
+				System.out.println("Live Performer: " + myRs.getString("musicperformer.name"));
+			}
 			System.out.println("Date: " + myRs.getDate("performance.showDate"));
 			System.out.println("Duration: " + myRs.getString("showProduction.duration") + " minutes");
 			System.out.println("Language: " + myRs.getString("showProduction.language"));
@@ -98,10 +101,10 @@ public class DBConnector {
 
 	// Select statement variables
 	public String selectStatement() {
-		return "SELECT showProduction.showName, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice, "
-				+ "performance.id, performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle "
-				+ "FROM showProduction " + "INNER JOIN performance "
-				+ "ON showProduction.id = performance.showProductionID";
+		return "SELECT performance.id, showProduction.showName, musicperformer.name, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice, performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle "
+				+ "FROM showProduction " + "LEFT JOIN performance "
+				+ "ON showProduction.id = performance.showProductionID " + "LEFT JOIN musicperformer "
+				+ "ON showProduction.id = musicperformer.showProductionID";
 	}
 
 	// query to list all shows

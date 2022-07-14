@@ -1,6 +1,6 @@
 USE theatrebooking;
 
-INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Queen', 'Queen are here to rock your socks off!', '120', 'English', 'Concert', '0', '10.00', '20.00');
+INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Queen', 'Queen are here to rock your socks off!', '120', 'English', 'Concert', '1', '10.00', '20.00');
 
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Le Figaro', 'Mozarts back with a brand new track!', '180', 'Italian', 'Opera', '1',  '6.00', '12.00');
 
