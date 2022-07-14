@@ -115,12 +115,12 @@ public class Basket {
 				basketTotal = basketTotal + (tickets.size() * 1.00);
 			}
 			return basketTotal;
-		} else if (postage=false) {
-		for (int i = 0; i < tickets.size(); i++) {
+		} else {
+			for (int i = 0; i < tickets.size(); i++) {
 			t = t + tickets.get(i).getPrice();
-		}
-		basketTotal = t;
-		return basketTotal;
+			}
+			basketTotal = t;
+			return basketTotal;
 		}
 	}
 
