@@ -89,49 +89,50 @@ public class Basket {
 
 	public double getBasketTotal() {
 		double t = 0.00;
-		// get price of all tickets without postage
-
-		// get price of all tickets with postage calculated
-		if (postage = true) {
-			for (int i = 0; i < tickets.size(); i++) {
-				t = t + tickets.get(i).getPrice();
-			}
-			basketTotal = t;
-			// find which tickets have postage applied and store that in a variable
-			int n = 0;
-			for (int i = 0; i < tickets.size(); i++) {
-				if (tickets.get(i).getConcession().equals("Regular")) {
-				} else {
-					n = n + 1;
-				}
-			}
-			// all tickets are concessions no postage fee
-			if (n == tickets.size()) {
-				return basketTotal;
-			}
-			// if at least 1 or more, but not all are concessions then add 1.00
-			else if (n >= 1) {
-				basketTotal = basketTotal + 1.00;
-			}
-			// otherwise add 1.00 for all tickets in arrayList
-			else {
-				basketTotal = basketTotal + (tickets.size() * 1.00);
-			}
-			return basketTotal;
-		} else {
-			for (int i = 0; i < tickets.size(); i++) {
+		for (int i = 0; i < tickets.size(); i++) {
 			t = t + tickets.get(i).getPrice();
-			}
+		}
 			basketTotal = t;
 			return basketTotal;
 		}
+	
+	public double getBasketTotalWithPostage() {
+		double t = 0.00;
+		for (int i = 0; i < tickets.size(); i++) {
+			t = t + tickets.get(i).getPrice();
+		}
+		basketTotal = t;
+		// find which tickets have postage applied and store that in a variable
+		int n = 0;
+		for (int i = 0; i < tickets.size(); i++) {
+			if (tickets.get(i).getConcession().equals("Regular")) {
+				// do nothing
+			} 
+			else {
+				n = n + 1;
+			}
+		}
+		// all tickets are concessions no postage fee
+		if (n == tickets.size()) {
+			return basketTotal;
+		}
+		// if at least 1 or more, but not all are concessions then add 1.00
+		else if (n >= 1) {
+			basketTotal = basketTotal + 1.00;
+		}
+		// otherwise add 1.00 for all tickets in arrayList
+		else if (n == 0) {
+			basketTotal = basketTotal + (tickets.size() * 1.00);
+		}
+		return basketTotal;
 	}
-
-	public String getFormattedBasketTotal() {
-		double bt = getBasketTotal();
-		String total = sf.formatPrice(bt);
-		return total;
-	}
+	
+	// method now not needed
+//	public String getFormattedBasketTotal() {
+//		double bt = getBasketTotal();
+//		String total = sf.formatPrice(bt);
+//		return total;
+//	}
 
 	/**
 	 * 
