@@ -9,16 +9,19 @@ Instructions to run project
 To start the project first initialise the SQL database, there are two databases, one contains spoof data for testing and the other is without spoof data
 
 location: theTheatreRoyal\SQL Files
-without spoof data = theatreRoyalvanilla.sql
-spoof data = theatreRoyalwithData.sql
+a. without spoof data = theatreRoyalvanilla.sql
+b. spoof data = theatreRoyalwithData.sql
 
-1. Open MySQL workbench, either create a new MYSQL connection or click on Local instance, import the sql file from above
-2. Run sql script
+1. Open MySQL workbench, either create a new MYSQL connection or click on Local instance 
+2. There are two ways in which you can insert the chosen SQL(a or b) file into the database:
+	- Right click on the sql file to open with a note editor and copy the enitre code and insert it into a blank query tab
+	- Double click the sql file to open it in MySQL workbench (this may open in an unconnected session so copy the code and insert into a connection created from step 1
+3. Run sql script with the execute button (yellow lightning bolt)
 (database should now be initialised)
 
-3. Now open the java project in an IDE of your choice, file location: theTheatreRoyal\theTheatreRoyal
-4. First change the credentials.txt file to match your MYSQL workbench URL, Username and password
-5. Run the FrontEndController.java as a java application
+4. Now open the java project in an IDE of your choice, file location: theTheatreRoyal\theTheatreRoyal
+5. First change the credentials.txt file to match your MYSQL workbench URL, Username and password
+6. Run the FrontEndController.java as a java application
 
 
 There are some known bugs in the program:
