@@ -79,9 +79,6 @@ public class DBConnector {
 			System.out.println("			Performance no." + myRs.getString("performance.id"));
 			System.out.println("Name: " + myRs.getString("showProduction.showName"));
 			System.out.println("Description: " + myRs.getString("showProduction.showDescription"));
-			if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
-				System.out.println("Live Performer: " + myRs.getString("musicperformer.name"));
-			}
 			System.out.println("Date: " + myRs.getDate("performance.showDate"));
 			System.out.println("Duration: " + myRs.getString("showProduction.duration") + " minutes");
 			System.out.println("Language: " + myRs.getString("showProduction.language"));
@@ -90,7 +87,6 @@ public class DBConnector {
 					+ "	Stall Availibility: " + myRs.getInt("performance.totalAvailibilityStalls"));
 			System.out.println("Circle Price: £" + myRs.getDouble("showProduction.circlePrice")
 					+ "	Circle Availibility: " + myRs.getInt("performance.totalAvailibilityCircle"));
-			System.out.println(bec.formatter());
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -101,15 +97,13 @@ public class DBConnector {
 
 	// Select statement variables
 	public String selectStatement() {
-		return "SELECT performance.id, showProduction.showName, musicperformer.name, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice, performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle "
-				+ "FROM showProduction " + "LEFT JOIN performance "
-				+ "ON showProduction.id = performance.showProductionID " + "LEFT JOIN musicperformer "
-				+ "ON showProduction.id = musicperformer.showProductionID";
+		return "SELECT performance.id, showProduction.showName, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice, performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle "
+				+ "FROM showProduction LEFT JOIN performance " + "ON showProduction.id = performance.showProductionID";
 	}
 
 	// query to list all shows
 	public void listShowProduction() {
-
+		BackEndController bec = new BackEndController();
 		try {
 			int rowcount = 0;
 
@@ -122,10 +116,16 @@ public class DBConnector {
 			// Process the result set
 			while (myRs.next()) {
 				printShowData(myRs);
-				rowcount = myRs.getRow();
+				rowcount++;
+				if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
+					musicPerformer(rowcount);
+
+				}
+				System.out.println(bec.formatter());
+
+				// Display total results
+				// System.out.println("Total results: " + rowcount);
 			}
-			// Display total results
-			System.out.println("Total results: " + rowcount);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,9 +133,37 @@ public class DBConnector {
 
 	}
 
+	public void musicPerformer(int showProductionID) {
+		try {
+			// Prepare a statement
+			myStmt = conn.prepareStatement(
+					"SELECT musicperformer.showProductionID, GROUP_CONCAT(musicperformer.name SEPARATOR ', ') name "
+							+ "FROM musicperformer "
+							+ "WHERE (musicperformer.showProductionID = musicperformer.showProductionID) "
+							+ "AND musicperformer.showProductionID = ? " + "GROUP BY musicperformer.showProductionID");
+
+			// Set the parameters
+			myStmt.setInt(1, showProductionID);
+
+			// Execute SQL query
+			myRs = myStmt.executeQuery();
+
+			// Process the result set
+			while (myRs.next()) {
+				// printShowData(myRs);
+				System.out.println("Live Performer(s): " + myRs.getString("name"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	// query to list all shows by name
 	public void searchShowByName() {
-
+		BackEndController bec = new BackEndController();
 		try {
 			int rowcount = 0;
 
@@ -154,7 +182,12 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				printShowData(myRs);
-				rowcount = myRs.getRow();
+				rowcount++;
+				if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
+					musicPerformer(rowcount);
+
+				}
+				System.out.println(bec.formatter());
 			}
 			// Display total results
 			System.out.println("Total results: " + rowcount);
@@ -167,7 +200,7 @@ public class DBConnector {
 
 	// query to list all shows by date
 	public void searchShowByDate() {
-
+		BackEndController bec = new BackEndController();
 		try {
 			int rowcount = 0;
 
@@ -187,7 +220,12 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				printShowData(myRs);
-				rowcount = myRs.getRow();
+				rowcount++;
+				if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
+					musicPerformer(rowcount);
+
+				}
+				System.out.println(bec.formatter());
 			}
 			// Display total results
 			System.out.println("Total results: " + rowcount);
@@ -335,6 +373,33 @@ public class DBConnector {
 			myStmt.setString(4, user.getAddressLine2());
 			myStmt.setString(5, user.getCity());
 			myStmt.setString(6, user.getPostcode());
+
+			// Execute SQL query
+			myStmt.executeUpdate();
+
+			// System.out.println();
+			// System.out.println("Insert complete");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void injectTicketInfo(int transactionID, String performanceID, int concessionID, String collectionID,
+			double price) {
+		try {
+			// Prepare a statement
+			myStmt = conn.prepareStatement(
+					"INSERT INTO ticket (transactionID, performanceID, concessionID, collectionID, price) VALUES (?,?,?,?,?)");
+
+			// Set the parameters
+			myStmt.setInt(1, transactionID);
+			myStmt.setString(2, performanceID);
+			myStmt.setInt(3, concessionID);
+			myStmt.setString(4, collectionID);
+			myStmt.setDouble(5, price);
 
 			// Execute SQL query
 			myStmt.executeUpdate();
