@@ -1,7 +1,0 @@
-showProduction.
-
-showProduction.id, showProduction.showName, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice
-
-performance.
-
-performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle
