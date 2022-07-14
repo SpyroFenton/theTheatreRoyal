@@ -34,15 +34,10 @@ CREATE TABLE IF NOT EXISTS `theatrebooking`.`showProduction` (
 ENGINE = InnoDB;
 
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Queen', 'Queen are here to rock your socks off!', '120', 'English', 'Concert', '1', '10.00', '20.00');
-
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Le Figaro', 'Mozarts back with a brand new track!', '180', 'Italian', 'Opera', '1',  '6.00', '12.00');
-
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Les Miserable', 'The French are back with a revolution. King Louis is a bit worried', '120', 'English', 'Musical', '0', '9.00', '14.00');
-
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Shakespeare: To be, or not be', 'A new take on the Shakespeare play Hamlet', '90', 'English', 'Theatre', '0', '5.00', '10.00');
-
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Bugsy Malone', 'The kids are back with swing', '150', 'English', 'Musical', '1', '10.00', '7.00');
-
 INSERT INTO showProduction (showName, showDescription, duration, language, typeID, liveAccompaniment, circlePrice, stallPrice) VALUES ('Adele', 'Latest hits from the album 104', '120', 'English', 'Concert', '1', '20.00', '30.00');
 
 -- -----------------------------------------------------
@@ -65,23 +60,14 @@ CREATE TABLE IF NOT EXISTS `theatrebooking`.`performance` (
 ENGINE = InnoDB;
 
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-10-10', '19:30:00', '120', '80', '1');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-10-12', '14:00:00', '120', '80', '2');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-10-12', '19:30:00', '120', '80', '2');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-10-18', '19:30:00', '120', '80', '3');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-10-19', '19:30:00', '120', '80', '3');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-10-20', '19:30:00', '120', '80', '3');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-11-06', '17:30:00', '120', '80', '4');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-12-04', '17:30:00', '120', '80', '4');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-12-10', '18:00:00', '120', '80', '5');
-
 INSERT INTO performance (showDate, showStartTime, totalAvailibilityStalls, totalAvailibilityCircle, showProductionID) VALUES ('2022-12-14', '20:00:00', '120', '80', '6');
 
 
@@ -128,6 +114,7 @@ INSERT INTO musicPerformer (name, showProductionID) VALUES ('Esa Pekka Salonen',
 INSERT INTO musicPerformer (name, showProductionID) VALUES ('James Gall', '5');
 INSERT INTO musicPerformer (name, showProductionID) VALUES ('Ed Sheeran', '5');
 INSERT INTO musicPerformer (name, showProductionID) VALUES ('Adele', '6');
+
 
 -- -----------------------------------------------------
 -- Table `theatrebooking`.`regularPerformer`
@@ -194,25 +181,7 @@ CREATE TABLE IF NOT EXISTS `theatrebooking`.`ticket` (
   `concessionID` INT NULL,
   `collectionID` ENUM('Posted', 'BoxOffice', 'PrintAtHome') NULL,
   `price` DOUBLE NULL,
-  PRIMARY KEY (`id`),
-  INDEX `transactionID_idx` (`transactionID` ASC) INVISIBLE,
-  INDEX `performanceID_idx` (`performanceID` ASC) VISIBLE,
-  INDEX `concessionID_idx` (`concessionID` ASC) VISIBLE,
-  CONSTRAINT `transactionID`
-    FOREIGN KEY (`transactionID`)
-    REFERENCES `theatrebooking`.`transactionID` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `performance3ID`
-    FOREIGN KEY (`performanceID`)
-    REFERENCES `theatrebooking`.`performance` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `concessionID`
-    FOREIGN KEY (`concessionID`)
-    REFERENCES `theatrebooking`.`concessionID` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
