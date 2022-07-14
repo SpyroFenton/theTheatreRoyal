@@ -87,15 +87,9 @@ public class Basket {
 	public double getBasketTotal() {
 		double t = 0.00;
 		// get price of all tickets without postage
-		if (postage = false) {
-			for (int i = 0; i < tickets.size(); i++) {
-				t = t + tickets.get(i).getPrice();
-			}
-			basketTotal = t;
-			return basketTotal;
-		}
+
 		// get price of all tickets with postage calculated
-		else {
+		if (postage = true) {
 			for (int i = 0; i < tickets.size(); i++) {
 				t = t + tickets.get(i).getPrice();
 			}
@@ -103,7 +97,7 @@ public class Basket {
 			// find which tickets have postage applied and store that in a variable
 			int n = 0;
 			for (int i = 0; i < tickets.size(); i++) {
-				if (tickets.get(i).getConcession().equals("Regular") ) {
+				if (tickets.get(i).getConcession().equals("Regular")) {
 				} else {
 					n = n + 1;
 				}
@@ -121,6 +115,12 @@ public class Basket {
 				basketTotal = basketTotal + (tickets.size() * 1.00);
 			}
 			return basketTotal;
+		} else if (postage=false) {
+		for (int i = 0; i < tickets.size(); i++) {
+			t = t + tickets.get(i).getPrice();
+		}
+		basketTotal = t;
+		return basketTotal;
 		}
 	}
 
