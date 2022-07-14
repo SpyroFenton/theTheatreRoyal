@@ -414,6 +414,29 @@ public class DBConnector {
 
 	}
 
+	public int lastTransactionID() {
+		int transactionID = 0;
+		try {
+			// Prepare a statement
+			myStmt = conn.prepareStatement("SELECT id FROM transactionid ORDER BY id DESC limit 1");
+
+			// Execute SQL query
+			myRs = myStmt.executeQuery();
+			// stallsPrice = myRs.getDouble("showProduction.stallPrice");
+
+			// Display the result set
+			while (myRs.next()) {
+				transactionID = myRs.getInt("transactionid.id");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return transactionID;
+
+	}
+
 	public void insertTransactionID() {
 
 		try {

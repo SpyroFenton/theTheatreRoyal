@@ -249,6 +249,7 @@ public class BackEndController {
 		ticket.setDate(db.ticket.getDate());
 		ticket.setPerformanceID(db.ticket.getPerformanceID());
 		ticket.setStartTime(db.ticket.getStartTime());
+
 		// basket add ticket
 		basket.addTicket(ticket);
 
@@ -312,7 +313,7 @@ public class BackEndController {
 			switch (in.getNumber("")) {
 			case 1:
 				basket.applyPostage();
-				System.out.println("Your new basket total is " + basket.getBasketTotal());
+				System.out.println("Your new basket total is " + basket.getBasketTotalWithPostage());
 				System.out.print("Proceeding to payment.");
 				paymentMenu();
 				break;
@@ -371,6 +372,13 @@ public class BackEndController {
 		db.injectCustomerInfo();
 		db.insertTransactionID();
 
+		// for loop for all the basket tickets we set their transactionID to int
+		// transaction
+		int transactionID = db.lastTransactionID();
+		for (int i = 0; i < basket.tickets.size(); i++) {
+			basket.tickets.get(i).setTransactionID(transactionID);
+		}
+
 		for (int i = 0; i < basket.tickets.size(); i++) {
 			String performanceId = basket.tickets.get(i).getPerformanceID();
 			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
@@ -398,9 +406,10 @@ public class BackEndController {
 			db.injectTicketInfo(transID, perfID, concID, collectID, price);
 		}
 
-		String bt = basket.getFormattedBasketTotal();
+		// String bt = basket.getFormattedBasketTotal();
+
 		System.out.println("Your tickets have been processed");
-		System.out.println("Your account has been charged " + bt);
+		System.out.println("Your account has been charged.");
 		// clear the basket
 		basket.clearBasket();
 		System.out.println("We look forward to seeing you soon. Thank you.");
