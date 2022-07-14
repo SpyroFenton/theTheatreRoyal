@@ -35,6 +35,9 @@ public class Basket {
 		}
 	}
 
+	public void setPostageFalse() {
+		postage = false;
+	}
 	public boolean getPostage() {
 		return postage;
 	}
@@ -180,6 +183,7 @@ public class Basket {
 					+ " Conc: " + co + " Price: " + pr);
 			tn++;
 		}
+		setPostageFalse();
 		double bt = getBasketTotal();
 		System.out.println("\nThe total of your basket is: " + sf.formatPrice(bt) + "\n");
 	}
