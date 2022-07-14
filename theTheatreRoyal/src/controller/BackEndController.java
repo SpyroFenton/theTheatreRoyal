@@ -24,15 +24,22 @@ public class BackEndController {
 		db.connect();
 	}
 
+	public void welcome() {
+		System.out.println("Welcome to the Theatre Royal");
+	}
+
+	public void exit() {
+		System.out.println("We look forward to seeing you soon. Thank you.");
+	}
+
 	public void mainMenu() {
 
-		System.out.println("Welcome to the Theatre Royal");
+		welcome();
 		System.out.println();
 		System.out.println("Please type a number to choose an option");
 		System.out.println();
 		System.out.println(formatter());
 		System.out.println("1 - View What's On/Calendar");
-		// System.out.println("2 - Buy ticket/(S)");
 		System.out.println("2 - View basket");
 		// System.out.println("3 - Employee login");
 		System.out.println("3 - Exit");
@@ -59,20 +66,19 @@ public class BackEndController {
 				break;
 			default:
 				System.out.println("Error: You must choose a valid option");
+
 			}
 		} while (!exit);
 		exit();
 	}
 
 	public String formatter() {
-		// return "--------------------------------------------------------------";
-		return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+		return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 	}
 
 	public void showCalendar() {
 
 		System.out.println("Please choose an option");
-		// System.out.println();
 		System.out.println(formatter());
 		System.out.println("1 - View all shows");
 		System.out.println("2 - Browse shows by name");
@@ -90,8 +96,6 @@ public class BackEndController {
 				db.listShowProduction();
 				System.out.println();
 				buyMethod();
-				// loopBackMenu();
-
 				break;
 			case 2:
 				db.searchShowByName();
@@ -116,14 +120,8 @@ public class BackEndController {
 		exit();
 	}
 
-	public void exit() {
-		System.out.println("Thank you for using TheatreRoyal");
-		System.exit(0); // Exits the program
-	}
-
 	public void loopBackMenu() {
 		System.out.println("Please choose an option");
-		// System.out.println();
 		System.out.println(formatter());
 		System.out.println("1 - Buy ticket/(S)");
 		System.out.println("2 - Show Calendar");
@@ -148,10 +146,10 @@ public class BackEndController {
 
 	public void buyMethod() {
 		System.out.println("Please choose an option");
-		// System.out.println();
 		System.out.println(formatter());
 		System.out.println("1 - Buy ticket");
-		System.out.println("2 - Main menu");
+		System.out.println("2 - Search for another show");
+		System.out.println("3 - Main menu");
 		System.out.println(formatter());
 
 		switch (in.getNumber("")) {
@@ -160,6 +158,9 @@ public class BackEndController {
 			showConfirmation();
 			break;
 		case 2:
+			showCalendar();
+			break;
+		case 3:
 			mainMenu();
 			break;
 		default:
@@ -168,13 +169,15 @@ public class BackEndController {
 	}
 
 	public void showConfirmation() {
-		System.out.println("Is this the correct ticket [Y/N]");
-		String reply = in.getText("").toLowerCase();
-		switch (reply) {
-		case "y":
+		System.out.println(formatter());
+		System.out.println("Is this the correct ticket");
+		System.out.println("1 - Yes");
+		System.out.println("2 - No");
+		switch (in.getNumber("")) {
+		case 1:
 			newTicket();
 			break;
-		case "n":
+		case 2:
 			buyMethod();
 			break;
 		default:
@@ -186,9 +189,8 @@ public class BackEndController {
 
 		// create a new ticket
 		Ticket ticket = new Ticket();
-		//
+
 		// user selects seat Type
-		//
 		System.out.println("Enter Seat type:");
 		System.out.println("1- Circle");
 		System.out.println("2- Stalls");
@@ -199,21 +201,18 @@ public class BackEndController {
 			ticket.setPrice(circlePrice);
 			seatType = "Circle";
 			ticket.setSeatType(seatType);
-			// db.updateSeatAvailibilityCirlce();
 			break;
 		case 2:
 			double stallsPrice = db.stallsPrice();
 			ticket.setPrice(stallsPrice);
 			seatType = "Stalls";
 			ticket.setSeatType(seatType);
-			// db.updateSeatAvailibilityStalls();
 			break;
 		default:
 			System.out.println("Error: You must choose a valid option");
 		}
-		//
+
 		// user select concession options
-		//
 		System.out.println("Enter Concession type:");
 		System.out.println("1- Regular (no concession)");
 		System.out.println("2- Student");
@@ -231,13 +230,11 @@ public class BackEndController {
 			ticket.applyConcession();
 			break;
 		case 3:
-			// set stall price in ticket
 			concession = "Under 16";
 			ticket.setConcession(concession);
 			ticket.applyConcession();
 			break;
 		case 4:
-			// set stall price in ticket
 			concession = "Other";
 			ticket.setConcession(concession);
 			ticket.applyConcession();
@@ -246,7 +243,7 @@ public class BackEndController {
 			System.out.println("Error: You must choose a valid option");
 		}
 
-		// set ticket info (showName, duration bla bla bla)
+		// set ticket info (showName, duration, performance, starttime)
 		ticket.setShowName(db.ticket.getShowName());
 		ticket.setDate(db.ticket.getDate());
 		ticket.setPerformanceID(db.ticket.getPerformanceID());
@@ -310,12 +307,13 @@ public class BackEndController {
 			System.out.println("Postage costs £1 per ticket. "
 					+ "If your order contains a concession ticket, postage will be £1 for the entire order."
 					+ " If all your tickets are a concession ticket, postage will be free");
+			System.out.println("");
 			System.out.println("1- Yes, I'd like to apply postage");
 			System.out.println("2- No, I do not want postage");
 			switch (in.getNumber("")) {
 			case 1:
 				basket.applyPostage();
-				System.out.println("Your new basket total is " + basket.getBasketTotalWithPostage());
+				System.out.println("Your new basket total is: �" + basket.getBasketTotalWithPostage());
 				System.out.print("Proceeding to payment.");
 				paymentMenu();
 				break;
@@ -324,6 +322,8 @@ public class BackEndController {
 						"Okay. On confirmation of your order you will be able to collect your tickets at our box office.");
 				paymentMenu();
 				break;
+			default:
+				System.out.println("Error: You must choose a valid option");
 			}
 		} else {
 			paymentMenu();
@@ -331,6 +331,7 @@ public class BackEndController {
 	}
 
 	public void paymentMenu() {
+		System.out.println("");
 		System.out.println("In order to confirm your payment please enter your Credit Card number");
 		String ccNo = in.getText("");
 		if (inputValidator.validateCreditCard(ccNo)) {
@@ -338,7 +339,6 @@ public class BackEndController {
 			// go to process payment
 			processPayment();
 		} else {
-			// if (inputValidator.validateCreditCard(ccNo) = false)
 			System.out.println("The credit card number you entered was invalid.");
 			System.out.println(
 					"Please check that your credit card number is 16 characters long, and has no spaces or '-'.");
@@ -353,34 +353,28 @@ public class BackEndController {
 			case 2:
 				viewBasket();
 				break;
+			default:
+				System.out.println("Error: You must choose a valid option");
 			}
 		}
 	}
 
 	public void processPayment() {
-		//
-		//
 
-		// add transaction ID to all tickets
-		// int transactionId = // some db query to create an id that is next in sql
-		// column table
-		// basket.setTransactionIdOfAll(transactionId);
-		// TO DO
-		// TO DO
-		// Add tickets to database
-		// add transaction to database
-		// add the customer to the database
-		// update the availability in the relative performance database
+		// adds the customer to the database
 		db.injectCustomerInfo();
+
+		// updates the availability in the relative performance database
 		db.insertTransactionID();
 
-		// for loop for all the basket tickets we set their transactionID to int
-		// transaction
+		// updates transactionID iterating through the basket
 		int transactionID = db.lastTransactionID();
 		for (int i = 0; i < basket.tickets.size(); i++) {
 			basket.tickets.get(i).setTransactionID(transactionID);
 		}
 
+		// updates seat availibility in database for each seat type iterating through
+		// basket
 		for (int i = 0; i < basket.tickets.size(); i++) {
 			String performanceId = basket.tickets.get(i).getPerformanceID();
 			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
@@ -390,6 +384,7 @@ public class BackEndController {
 			}
 		}
 
+		// sets parameters for ticket table in the database
 		for (int i = 0; i < basket.tickets.size(); i++) {
 			int transID = basket.tickets.get(i).getTransactionID();
 			String perfID = basket.tickets.get(i).getPerformanceID();
@@ -405,13 +400,10 @@ public class BackEndController {
 			} else {
 				concID = 4;
 			}
+			// inserts ticket info to ticket database
 			db.injectTicketInfo(transID, perfID, concID, collectID, price);
 		}
 
-		// String bt = basket.getFormattedBasketTotal();
-
-		System.out.println("Your tickets have been processed");
-		System.out.println("Your account has been charged.");
 		// clear the basket
 		basket.clearBasket();
 		System.out.println("We look forward to seeing you soon. Thank you.");

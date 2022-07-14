@@ -72,11 +72,10 @@ public class DBConnector {
 	public void printShowData(ResultSet myRs) {
 
 		try {
-
 			BackEndController bec = new BackEndController();
 			System.out.println();
 			System.out.println(bec.formatter());
-			System.out.println("			Performance no." + myRs.getString("performance.id"));
+			System.out.println("				Performance no." + myRs.getString("performance.id"));
 			System.out.println("Name: " + myRs.getString("showProduction.showName"));
 			System.out.println("Description: " + myRs.getString("showProduction.showDescription"));
 			System.out.println("Date: " + myRs.getDate("performance.showDate"));
@@ -97,7 +96,7 @@ public class DBConnector {
 
 	// Select statement variables
 	public String selectStatement() {
-		return "SELECT performance.id, showProduction.showName, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice, performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle "
+		return "SELECT performance.id, showProduction.ID, showProduction.showName, showProduction.showDescription, showProduction.duration, showProduction.language, showProduction.typeID, showProduction.liveAccompaniment, showProduction.circlePrice, showProduction.stallPrice, performance.showDate, performance.showStartTime, performance.totalAvailibilityStalls, performance.totalAvailibilityCircle "
 				+ "FROM showProduction LEFT JOIN performance " + "ON showProduction.id = performance.showProductionID";
 	}
 
@@ -116,15 +115,12 @@ public class DBConnector {
 			// Process the result set
 			while (myRs.next()) {
 				printShowData(myRs);
-				rowcount++;
+				rowcount = myRs.getInt("showProduction.ID");
 				if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
 					musicPerformer(rowcount);
 
 				}
 				System.out.println(bec.formatter());
-
-				// Display total results
-				// System.out.println("Total results: " + rowcount);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -150,6 +146,7 @@ public class DBConnector {
 
 			// Process the result set
 			while (myRs.next()) {
+
 				// printShowData(myRs);
 				System.out.println("Live Performer(s): " + myRs.getString("name"));
 
@@ -182,7 +179,7 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				printShowData(myRs);
-				rowcount++;
+				rowcount = myRs.getInt("showProduction.ID");
 				if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
 					musicPerformer(rowcount);
 
@@ -220,7 +217,7 @@ public class DBConnector {
 			// Display the result set
 			while (myRs.next()) {
 				printShowData(myRs);
-				rowcount++;
+				rowcount = myRs.getInt("showProduction.ID");
 				if (myRs.getString("showProduction.liveAccompaniment").equals("1")) {
 					musicPerformer(rowcount);
 
@@ -254,35 +251,21 @@ public class DBConnector {
 			while (myRs.next()) {
 				printShowData(myRs);
 
+				// sets tickets parameters
 				ticket.setShowName(myRs.getString("showProduction.showName"));
-				// System.out.println(ticket.getShowName());
-
 				show.setDuration(myRs.getInt("showProduction.duration"));
-				// System.out.println(show.getDuration());
-
-				// language and genre setter/getters need to be added to class if we want them
-				// displayed on ticket
-
 				ticket.setStartTime(myRs.getString("performance.showStartTime"));
-				// System.out.println(ticket.getStartTime());
-
 				ticket.setDate(myRs.getString("performance.showDate"));
-				// System.out.println(ticket.getDate());
-
 				performance.setCircleAvailable(myRs.getInt("performance.totalAvailibilityCircle"));
-				// System.out.println(performance.getCircleAvailable());
-
 				performance.setStallsAvailable(myRs.getInt("performance.totalAvailibilityStalls"));
-				// System.out.println(performance.getStallsAvailable());
-
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	// sets seat price for circle for specified performance
 	public double circlePrice() {
 		double circlePrice = 0;
 		try {
@@ -301,25 +284,19 @@ public class DBConnector {
 			while (myRs.next()) {
 				circlePrice = myRs.getDouble("showProduction.circlePrice");
 				show.setCirclePrice(circlePrice);
-
-				// Test to see circle price has stored from database
-				// System.out.println(show.getCirclePrice());
-
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return circlePrice;
-
 	}
 
+	// sets seat price for stall for specified performance
 	public double stallsPrice() {
 		double stallsPrice = 0;
 		try {
-
 			// Prepare a statement
 			myStmt = conn.prepareStatement(
 					"SELECT showProduction.stallPrice FROM showProduction INNER JOIN performance ON showProduction.id = performance.showProductionID WHERE performance.id = ?;");
@@ -334,16 +311,12 @@ public class DBConnector {
 			while (myRs.next()) {
 				stallsPrice = myRs.getDouble("showProduction.stallPrice");
 				show.setStallsPrice(stallsPrice);
-
-				// Test to see circle price has stored from database
-				System.out.println(show.getStallsPrice());
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return stallsPrice;
 	}
 
@@ -358,6 +331,7 @@ public class DBConnector {
 
 	}
 
+	// inserts customer information to customer table in database
 	public void injectCustomerInfo() {
 
 		try {
@@ -377,9 +351,6 @@ public class DBConnector {
 			// Execute SQL query
 			myStmt.executeUpdate();
 
-			// System.out.println();
-			// System.out.println("Insert complete");
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -387,6 +358,7 @@ public class DBConnector {
 
 	}
 
+	// inserts ticket information to ticket table in database
 	public void injectTicketInfo(int transactionID, String performanceID, int concessionID, String collectionID,
 			double price) {
 		try {
@@ -403,9 +375,6 @@ public class DBConnector {
 
 			// Execute SQL query
 			myStmt.executeUpdate();
-
-			// System.out.println();
-			// System.out.println("Insert complete");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -437,6 +406,7 @@ public class DBConnector {
 
 	}
 
+	// inserts transaction details into transaction table in database
 	public void insertTransactionID() {
 
 		try {
@@ -450,66 +420,13 @@ public class DBConnector {
 			// Execute SQL query
 			myStmt.executeUpdate();
 
-			System.out.println("Insert complete.");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-//	public void updateSeatAvailibility() {
-//
-//		for (int i = 0; i < basket.tickets.size(); i++) {
-//			String performanceID = null;
-//			if (basket.tickets.get(i).getSeatType().equals("Circle")) {
-//				performanceID = basket.tickets.get(i).getPerformanceID();
-//				try {
-//					// Prepare a statement
-//					String sqlInsert = ("UPDATE performance SET totalAvailibilityCircle = totalAvailibilityCircle - 1 WHERE performance.id = ?;");
-//					myStmt = conn.prepareStatement(sqlInsert);
-//
-//					// Set the parameters
-//					myStmt.setString(1, performanceID);
-//
-//					// Execute SQL query
-//					myStmt.executeUpdate();
-//
-//					System.out.println("Insert complete...");
-//					// System.out.println(seatType);
-//					// System.out.println(performanceID);
-//
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			} else if (basket.tickets.get(i).getSeatType().equals("Stalls")) {
-//				performanceID = basket.tickets.get(i).getPerformanceID();
-//				try {
-//					// Prepare a statement
-//					String sqlInsert = ("UPDATE performance SET totalAvailibilityStalls = totalAvailibilityStalls - 1 WHERE performance.id = ?;");
-//					myStmt = conn.prepareStatement(sqlInsert);
-//
-//					// Set the parameters
-//					myStmt.setString(1, performanceID);
-//
-//					// Execute SQL query
-//					myStmt.executeUpdate();
-//
-//					System.out.println("Insert complete..");
-//					// System.out.println(seatType);
-//					// System.out.println(performanceID);
-//
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			// performanceID = basket.tickets.get(i).getPerformanceID();
-//
-//		}
-//	}
-
+	// updates
 	public void updateSeatAvailibilityCirlce(String performanceID) {
-
-		// String performanceID = ticket.getPerformanceID();
 
 		try {
 			// Prepare a statement
@@ -522,10 +439,6 @@ public class DBConnector {
 			// Execute SQL query
 			myStmt.executeUpdate();
 
-			System.out.println("Insert complete..");
-			// System.out.println(seatType);
-			// System.out.println(performanceID);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -534,7 +447,6 @@ public class DBConnector {
 
 	public void updateSeatAvailibilityStalls(String performanceID) {
 
-		// String performanceID = ticket.getPerformanceID();
 		try {
 			// Prepare a statement
 			String sqlInsert = ("UPDATE performance SET totalAvailibilityStalls = totalAvailibilityStalls - 1 WHERE performance.id = ?;");

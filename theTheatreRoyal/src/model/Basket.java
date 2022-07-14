@@ -38,6 +38,7 @@ public class Basket {
 	public void setPostageFalse() {
 		postage = false;
 	}
+
 	public boolean getPostage() {
 		return postage;
 	}
@@ -92,10 +93,10 @@ public class Basket {
 		for (int i = 0; i < tickets.size(); i++) {
 			t = t + tickets.get(i).getPrice();
 		}
-			basketTotal = t;
-			return basketTotal;
-		}
-	
+		basketTotal = t;
+		return basketTotal;
+	}
+
 	public double getBasketTotalWithPostage() {
 		double t = 0.00;
 		for (int i = 0; i < tickets.size(); i++) {
@@ -107,8 +108,7 @@ public class Basket {
 		for (int i = 0; i < tickets.size(); i++) {
 			if (tickets.get(i).getConcession().equals("Regular")) {
 				// do nothing
-			} 
-			else {
+			} else {
 				n = n + 1;
 			}
 		}
@@ -126,13 +126,6 @@ public class Basket {
 		}
 		return basketTotal;
 	}
-	
-	// method now not needed
-//	public String getFormattedBasketTotal() {
-//		double bt = getBasketTotal();
-//		String total = sf.formatPrice(bt);
-//		return total;
-//	}
 
 	/**
 	 * 
@@ -171,7 +164,7 @@ public class Basket {
 	}
 
 	public void displayBasket() {
-		System.out.println("Your Shopping Basket:/n");
+		System.out.println("Your Shopping Basket:\n");
 		int tn = 1;
 		for (int i = 0; i < tickets.size(); i++) {
 			String sN = tickets.get(i).getShowName();
@@ -188,16 +181,6 @@ public class Basket {
 		double bt = getBasketTotal();
 		System.out.println("\nThe total of your basket is: " + sf.formatPrice(bt) + "\n");
 	}
-
-//	public void setSeat() {
-//		for (int i = 0; i < tickets.size(); i++) {
-//			if (tickets.get(i).getSeatType().equals("Circle")) {
-//				db.updateSeatAvailibilityCirlce();
-//			} else if (tickets.get(i).getSeatType().equals("Stalls")) {
-//				db.updateSeatAvailibilityStalls();
-//			}
-//		}
-//	}
 
 	public int getCircleAmount() {
 		int circleAmount = 0;
