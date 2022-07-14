@@ -32,8 +32,8 @@ public class BackEndController {
 		System.out.println("1 - View What's On/Calendar");
 		// System.out.println("2 - Buy ticket/(S)");
 		System.out.println("2 - View basket");
-		System.out.println("3 - Employee login");
-		System.out.println("4 - Exit");
+		// System.out.println("3 - Employee login");
+		System.out.println("3 - Exit");
 		System.out.println(formatter());
 
 		boolean exit = false;
@@ -48,11 +48,11 @@ public class BackEndController {
 				viewBasket();
 				// loopBackMenu();
 				break;
+			// case 3:
+			// System.out.println("Insert employee method");
+			// loopBackMenu();
+			// break;
 			case 3:
-				System.out.println("Insert employee method");
-				loopBackMenu();
-				break;
-			case 4:
 				exit = true;
 				break;
 			default:
