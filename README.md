@@ -20,4 +20,9 @@ spoof data = theatreRoyalwithData.sql
 4. First change the credentials.txt file to match your MYSQL workbench URL, Username and password
 5. Run the FrontEndController.java as a java application
 
+
+There are some known bugs in the program:
+- Some search results might return an error message. The reason is not clear why, as sometimes repeating the same search that previously displayed an error message will work. More testing and debugging is needed.
+- Some Strings printed in the console might present 'odd' characters or symbols. We believe this to be a translation era when jumping on the program between MacOS and Windows.
+- Shows in the database could still be listed if the performance has already finished or started. This is because there is no feature to make sure SQL only pulls performances from todays date and time onward. This is definitely not an ideal scenario for the program to operate on, but to implement this feature by the deadline would take more time than we currently have.
 We hope you enjoy our program
