@@ -387,6 +387,33 @@ public class DBConnector {
 
 	}
 
+	public void injectTicketInfo(int transactionID, String performanceID, int concessionID, String collectionID,
+			double price) {
+		try {
+			// Prepare a statement
+			myStmt = conn.prepareStatement(
+					"INSERT INTO ticket (transactionID, performanceID, concessionID, collectionID, price) VALUES (?,?,?,?,?)");
+
+			// Set the parameters
+			myStmt.setInt(1, transactionID);
+			myStmt.setString(2, performanceID);
+			myStmt.setInt(3, concessionID);
+			myStmt.setString(4, collectionID);
+			myStmt.setDouble(5, price);
+
+			// Execute SQL query
+			myStmt.executeUpdate();
+
+			// System.out.println();
+			// System.out.println("Insert complete");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	public void insertTransactionID() {
 
 		try {

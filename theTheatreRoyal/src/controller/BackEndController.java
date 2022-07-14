@@ -300,7 +300,7 @@ public class BackEndController {
 			System.out.println("Error: You must choose a valid option");
 		}
 	}
-	
+
 	public void postage() {
 		if (basket.checkPostageApplies()) {
 			System.out.println("Would you like to apply postage to your order?");
@@ -317,7 +317,8 @@ public class BackEndController {
 				paymentMenu();
 				break;
 			case 2:
-				System.out.println("Okay. On confirmation of your order you will be able to collect your tickets at our box office.");
+				System.out.println(
+						"Okay. On confirmation of your order you will be able to collect your tickets at our box office.");
 				paymentMenu();
 				break;
 			}
@@ -377,6 +378,24 @@ public class BackEndController {
 			} else if (basket.tickets.get(i).getSeatType().equals("Stalls")) {
 				db.updateSeatAvailibilityStalls(performanceId);
 			}
+		}
+
+		for (int i = 0; i < basket.tickets.size(); i++) {
+			int transID = basket.tickets.get(i).getTransactionID();
+			String perfID = basket.tickets.get(i).getPerformanceID();
+			String collectID = basket.tickets.get(i).getCollectionID();
+			Double price = basket.tickets.get(i).getPrice();
+			int concID = 1;
+			if (basket.tickets.get(i).getConcession().equals("Regular")) {
+				concID = 1;
+			} else if (basket.tickets.get(i).getConcession().equals("Student")) {
+				concID = 2;
+			} else if (basket.tickets.get(i).getConcession().equals("Under 16")) {
+				concID = 3;
+			} else {
+				concID = 4;
+			}
+			db.injectTicketInfo(transID, perfID, concID, collectID, price);
 		}
 
 		String bt = basket.getFormattedBasketTotal();
