@@ -43,7 +43,7 @@ public class Basket {
 		// get local date as String
 		String localDate = LocalDate.now().toString();
 		// get localDate formatted as Date
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date currentDate = null;
 		try {
 			currentDate = formatter.parse(localDate);
@@ -61,7 +61,9 @@ public class Basket {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (ticketDate.compareTo(currentDate) <= 6) {
+			long timeDifference = ticketDate.getTime() - currentDate.getTime();
+			long daysDifference = (timeDifference / (1000 * 60 * 60 * 24)) % 365;
+			if (daysDifference <= 6) {
 				return false;
 			}
 		}
